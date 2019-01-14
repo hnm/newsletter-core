@@ -1,0 +1,165 @@
+{
+    "newsletter\\core\\bo\\Newsletter": {
+        "id": {
+            "prop-def": "n2n\\impl\\persistence\\orm\\property\\hangar\\scalar\\IntegerPropDef",
+            "props": {
+                "size": "32",
+                "signed": false
+            }
+        },
+        "subject": {
+            "prop-def": "n2n\\impl\\persistence\\orm\\property\\hangar\\scalar\\StringPropDef",
+            "props": {
+                "length": "255",
+                "charset": null
+            }
+        },
+        "n2nLocale": {
+            "prop-def": "n2n\\impl\\persistence\\orm\\property\\hangar\\N2nLocalePropDef",
+            "props": []
+        },
+        "sent": {
+            "prop-def": "n2n\\impl\\persistence\\orm\\property\\hangar\\scalar\\BooleanPropDef",
+            "props": []
+        },
+        "created": {
+            "prop-def": "n2n\\impl\\persistence\\orm\\property\\hangar\\DateTimePropDef",
+            "props": []
+        },
+        "createdBy": {
+            "prop-def": "n2n\\impl\\persistence\\orm\\property\\hangar\\scalar\\StringPropDef",
+            "props": {
+                "length": "255",
+                "charset": null
+            }
+        },
+        "lastMod": {
+            "prop-def": "n2n\\impl\\persistence\\orm\\property\\hangar\\DateTimePropDef",
+            "props": []
+        },
+        "lastModBy": {
+            "prop-def": "n2n\\impl\\persistence\\orm\\property\\hangar\\scalar\\StringPropDef",
+            "props": {
+                "length": "255",
+                "charset": null
+            }
+        },
+        "newsletterCis": {
+            "prop-def": "n2n\\impl\\persistence\\orm\\property\\hangar\\relation\\OneToManyPropDef",
+            "props": {
+                "props": {
+                    "targetEntityClass": "newsletter\\core\\bo\\NewsletterCi",
+                    "mappedBy": null,
+                    "cascadeType": {
+                        "1": "1",
+                        "2": "2",
+                        "4": "4",
+                        "8": "8",
+                        "16": "16"
+                    },
+                    "fetchType": "lazy",
+                    "orphanRemoval": true
+                }
+            }
+        },
+        "recipientCategories": {
+            "prop-def": "n2n\\impl\\persistence\\orm\\property\\hangar\\relation\\ManyToManyPropDef",
+            "props": {
+                "props": {
+                    "targetEntityClass": "newsletter\\core\\bo\\RecipientCategory",
+                    "mappedBy": null,
+                    "cascadeType": {
+                        "1": "1",
+                        "2": "2"
+                    },
+                    "fetchType": "lazy"
+                }
+            }
+        },
+        "histories": {
+            "prop-def": "n2n\\impl\\persistence\\orm\\property\\hangar\\relation\\OneToManyPropDef",
+            "props": {
+                "props": {
+                    "targetEntityClass": "newsletter\\core\\bo\\History",
+                    "mappedBy": "newsletter",
+                    "cascadeType": {
+                        "1": "1",
+                        "2": "2",
+                        "4": "4",
+                        "8": "8",
+                        "16": "16"
+                    },
+                    "fetchType": "lazy",
+                    "orphanRemoval": false
+                }
+            }
+        }
+    },
+    "newsletter\\core\\bo\\History": {
+        "id": {
+            "prop-def": "n2n\\impl\\persistence\\orm\\property\\hangar\\scalar\\IntegerPropDef",
+            "props": {
+                "size": "32",
+                "signed": false
+            }
+        },
+        "newsletter": {
+            "prop-def": "n2n\\impl\\persistence\\orm\\property\\hangar\\relation\\ManyToOnePropDef",
+            "props": {
+                "props": {
+                    "targetEntityClass": "newsletter\\core\\bo\\Newsletter",
+                    "cascadeType": [],
+                    "fetchType": "lazy"
+                }
+            }
+        },
+        "preparedDate": {
+            "prop-def": "n2n\\impl\\persistence\\orm\\property\\hangar\\DateTimePropDef",
+            "props": []
+        },
+        "historyEntries": {
+            "prop-def": "n2n\\impl\\persistence\\orm\\property\\hangar\\relation\\OneToManyPropDef",
+            "props": {
+                "props": {
+                    "targetEntityClass": "newsletter\\core\\bo\\HistoryEntry",
+                    "mappedBy": "history",
+                    "cascadeType": {
+                        "1": "1",
+                        "2": "2",
+                        "4": "4",
+                        "8": "8",
+                        "16": "16"
+                    },
+                    "fetchType": "lazy",
+                    "orphanRemoval": false
+                }
+            }
+        },
+        "newsletterHtml": {
+            "prop-def": "n2n\\impl\\persistence\\orm\\property\\hangar\\scalar\\TextPropDef",
+            "props": {
+                "size": "524280",
+                "charset": null
+            }
+        },
+        "newsletterText": {
+            "prop-def": "n2n\\impl\\persistence\\orm\\property\\hangar\\scalar\\TextPropDef",
+            "props": {
+                "size": "524280",
+                "charset": null
+            }
+        },
+        "historyLinks": {
+            "prop-def": "n2n\\impl\\persistence\\orm\\property\\hangar\\relation\\OneToManyPropDef",
+            "props": {
+                "props": {
+                    "targetEntityClass": "newsletter\\core\\bo\\HistoryLink",
+                    "mappedBy": null,
+                    "cascadeType": [],
+                    "fetchType": "lazy",
+                    "orphanRemoval": false
+                }
+            }
+        }
+    }
+}

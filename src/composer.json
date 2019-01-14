@@ -1,0 +1,11 @@
+{
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=7.0",
+        "n2n/rocket": "dev-master",
+        "swiftmailer/swiftmailer" : "v6.0.2"
+    },
+	"require-dev" : {
+		"n2n/hangar" : "dev-master"
+	}
+}
