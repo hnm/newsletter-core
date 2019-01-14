@@ -19,7 +19,7 @@
     },
     "autoload": {
         "psr-4": {
-            "event\\": "src/app/event"
+            "newsletter\\core\\": "src/app/newsletter/core"
         }
     }
 }
