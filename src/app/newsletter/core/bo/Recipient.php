@@ -52,6 +52,12 @@ class Recipient extends ObjectAdapter {
 		$this->lastMod = new \DateTime();
 	}
 	
+	private function _preRemove() {
+		foreach ($this->getHistoryEntryClicks() as $historyEntryClick) {
+			$historyEntryClick->setRecipient(null);
+		}
+	}
+	
 	public function setId($id) {
 		$this->id = $id;
 	}
