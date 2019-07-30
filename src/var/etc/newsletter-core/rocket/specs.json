@@ -7,8 +7,13 @@
             "label": "Blacklisted",
             "pluralLabel": "Blacklisted",
             "iconType": null,
+            "filterData": {
+                "useAnd": true,
+                "items": [],
+                "groups": []
+            },
             "defaultSort": {
-                "id": "DESC"
+                "email": "DESC"
             },
             "props": {
                 "email": {
@@ -43,7 +48,7 @@
                         "dateStyle": "medium",
                         "timeStyle": "short"
                     },
-                    "label": "Created",
+                    "label": "Erstellt am",
                     "objectProperty": "created",
                     "entityProperty": "created"
                 }
@@ -65,7 +70,9 @@
                 },
                 "addEiCommand": {
                     "class": "rocket\\impl\\ei\\component\\command\\common\\AddEiCommand",
-                    "props": []
+                    "props": {
+                        "duplicateAllowed": true
+                    }
                 },
                 "deleteEiCommand": {
                     "class": "rocket\\impl\\ei\\component\\command\\common\\DeleteEiCommand",
@@ -80,51 +87,70 @@
             "nature": "entity",
             "entity": "newsletter\\core\\bo\\History",
             "dataSourceName": null,
-            "label": "History",
-            "pluralLabel": "Historys",
+            "label": "Versand-Log",
+            "pluralLabel": "Versand-Logs",
             "iconType": null,
+            "identityStringPattern": "{preparedDate}",
+            "filterData": {
+                "useAnd": true,
+                "items": [],
+                "groups": []
+            },
+            "defaultSort": [],
             "props": {
-                "id": {
-                    "class": "rocket\\impl\\ei\\component\\prop\\numeric\\IntegerEiProp",
-                    "props": {
-                        "displayInEditView": false,
-                        "displayInAddView": false,
-                        "readOnly": true,
-                        "minValue": 0,
-                        "maxValue": 4294967295
-                    },
-                    "label": "Id",
-                    "objectProperty": "id",
-                    "entityProperty": "id"
-                },
-                "newsletter": {
-                    "class": "rocket\\impl\\ei\\component\\prop\\relation\\ManyToOneSelectEiProp",
-                    "props": {
-                        "mandatory": true
-                    },
-                    "label": "Newsletter",
-                    "objectProperty": "newsletter",
-                    "entityProperty": "newsletter"
-                },
                 "preparedDate": {
                     "class": "rocket\\impl\\ei\\component\\prop\\date\\DateTimeEiProp",
                     "props": {
-                        "mandatory": true
+                        "displayInOverview": true,
+                        "displayInDetailView": true,
+                        "displayInEditView": true,
+                        "displayInAddView": true,
+                        "constant": false,
+                        "readOnly": false,
+                        "mandatory": true,
+                        "draftable": false,
+                        "dateStyle": "medium",
+                        "timeStyle": "medium"
                     },
-                    "label": "Prepared Date",
+                    "label": "Datum",
                     "objectProperty": "preparedDate",
                     "entityProperty": "preparedDate"
                 },
                 "historyEntries": {
                     "class": "rocket\\impl\\ei\\component\\prop\\relation\\OneToManySelectEiProp",
-                    "props": [],
-                    "label": "History Entries",
+                    "props": {
+                        "displayInOverview": true,
+                        "displayInDetailView": true,
+                        "displayInEditView": true,
+                        "displayInAddView": true,
+                        "constant": false,
+                        "readOnly": true,
+                        "draftable": false,
+                        "targetExtensions": [],
+                        "embeddedAddEnabled": false,
+                        "filtered": true,
+                        "hiddenIfTargetEmpty": false
+                    },
+                    "label": "Log-Eintr\u00e4ge",
                     "objectProperty": "historyEntries",
                     "entityProperty": "historyEntries"
                 },
                 "newsletterHtml": {
                     "class": "rocket\\impl\\ei\\component\\prop\\string\\cke\\CkeEiProp",
-                    "props": [],
+                    "props": {
+                        "displayInOverview": false,
+                        "displayInDetailView": true,
+                        "displayInEditView": true,
+                        "displayInAddView": true,
+                        "constant": false,
+                        "readOnly": false,
+                        "mandatory": false,
+                        "draftable": false,
+                        "mode": "simple",
+                        "linkProviders": [],
+                        "tablesSupported": false,
+                        "bbcode": false
+                    },
                     "label": "Newsletter Html",
                     "objectProperty": "newsletterHtml",
                     "entityProperty": "newsletterHtml"
@@ -132,7 +158,16 @@
                 "newsletterText": {
                     "class": "rocket\\impl\\ei\\component\\prop\\string\\StringEiProp",
                     "props": {
-                        "maxlength": 255
+                        "displayInOverview": false,
+                        "displayInDetailView": true,
+                        "displayInEditView": true,
+                        "displayInAddView": true,
+                        "constant": false,
+                        "readOnly": false,
+                        "mandatory": false,
+                        "draftable": false,
+                        "maxlength": null,
+                        "multiline": false
                     },
                     "label": "Newsletter Text",
                     "objectProperty": "newsletterText",
@@ -140,13 +175,40 @@
                 },
                 "historyLinks": {
                     "class": "rocket\\impl\\ei\\component\\prop\\relation\\OneToManySelectEiProp",
-                    "props": [],
-                    "label": "History Links",
+                    "props": {
+                        "displayInOverview": true,
+                        "displayInDetailView": true,
+                        "displayInEditView": true,
+                        "displayInAddView": true,
+                        "constant": false,
+                        "readOnly": true,
+                        "draftable": false,
+                        "targetExtensions": [],
+                        "embeddedAddEnabled": false,
+                        "filtered": true,
+                        "hiddenIfTargetEmpty": false
+                    },
+                    "label": "Links",
                     "objectProperty": "historyLinks",
                     "entityProperty": "historyLinks"
                 }
             },
-            "commands": [],
+            "commands": {
+                "overviewEiCommand": {
+                    "class": "rocket\\impl\\ei\\component\\command\\common\\OverviewEiCommand",
+                    "props": {
+                        "pageSize": "30"
+                    }
+                },
+                "detailEiCommand": {
+                    "class": "rocket\\impl\\ei\\component\\command\\common\\DetailEiCommand",
+                    "props": []
+                },
+                "deleteEiCommand": {
+                    "class": "rocket\\impl\\ei\\component\\command\\common\\DeleteEiCommand",
+                    "props": []
+                }
+            },
             "partialControlOrder": [],
             "overallControlOrder": [],
             "entryControlOrder": []
@@ -155,32 +217,20 @@
             "nature": "entity",
             "entity": "newsletter\\core\\bo\\HistoryEntry",
             "dataSourceName": null,
-            "label": "History Entry",
-            "pluralLabel": "History Entrys",
+            "label": "Log-Eintrag",
+            "pluralLabel": "Log-Eintr\u00e4ge",
             "iconType": null,
+            "filterData": {
+                "useAnd": true,
+                "items": [],
+                "groups": []
+            },
+            "defaultSort": [],
             "props": {
-                "id": {
-                    "class": "rocket\\impl\\ei\\component\\prop\\numeric\\IntegerEiProp",
-                    "props": {
-                        "displayInOverview": true,
-                        "displayInDetailView": true,
-                        "displayInEditView": false,
-                        "displayInAddView": false,
-                        "constant": false,
-                        "readOnly": true,
-                        "mandatory": false,
-                        "draftable": false,
-                        "minValue": "0",
-                        "maxValue": "4294967295"
-                    },
-                    "label": "Id",
-                    "objectProperty": "id",
-                    "entityProperty": "id"
-                },
                 "email": {
                     "class": "rocket\\impl\\ei\\component\\prop\\string\\StringEiProp",
                     "props": {
-                        "displayInOverview": true,
+                        "displayInOverview": false,
                         "displayInDetailView": true,
                         "displayInEditView": true,
                         "displayInAddView": true,
@@ -263,14 +313,14 @@
                         "dateStyle": "medium",
                         "timeStyle": "short"
                     },
-                    "label": "Sent Date",
+                    "label": "Versanddatum",
                     "objectProperty": "sentDate",
                     "entityProperty": "sentDate"
                 },
                 "history": {
                     "class": "rocket\\impl\\ei\\component\\prop\\relation\\ManyToOneSelectEiProp",
                     "props": {
-                        "displayInOverview": true,
+                        "displayInOverview": false,
                         "displayInDetailView": true,
                         "displayInEditView": true,
                         "displayInAddView": true,
@@ -278,11 +328,13 @@
                         "readOnly": false,
                         "mandatory": true,
                         "draftable": false,
+                        "targetExtensions": [],
                         "targetRemovalStrategy": "prevent",
                         "embeddedAddEnabled": false,
-                        "filtered": true
+                        "filtered": true,
+                        "hiddenIfTargetEmpty": false
                     },
-                    "label": "History",
+                    "label": "Versand-Log",
                     "objectProperty": "history",
                     "entityProperty": "history"
                 },
@@ -296,17 +348,19 @@
                         "constant": false,
                         "readOnly": true,
                         "draftable": false,
+                        "targetExtensions": [],
                         "embeddedAddEnabled": false,
-                        "filtered": true
+                        "filtered": true,
+                        "hiddenIfTargetEmpty": false
                     },
-                    "label": "History Link Clicks",
+                    "label": "Klicks",
                     "objectProperty": "historyLinkClicks",
                     "entityProperty": "historyLinkClicks"
                 },
                 "salutation": {
-                    "class": "rocket\\impl\\ei\\component\\prop\\enum\\EnumEiProp",
+                    "class": "rocket\\impl\\ei\\component\\prop\\string\\StringEiProp",
                     "props": {
-                        "displayInOverview": false,
+                        "displayInOverview": true,
                         "displayInDetailView": true,
                         "displayInEditView": true,
                         "displayInAddView": true,
@@ -314,15 +368,30 @@
                         "readOnly": false,
                         "mandatory": false,
                         "draftable": false,
-                        "options": [],
-                        "associatedGuiProps": []
+                        "maxlength": "255",
+                        "multiline": false
                     },
-                    "label": "Salutation",
+                    "label": "Anrede",
                     "objectProperty": "salutation",
                     "entityProperty": "salutation"
                 }
             },
-            "commands": [],
+            "commands": {
+                "overviewEiCommand": {
+                    "class": "rocket\\impl\\ei\\component\\command\\common\\OverviewEiCommand",
+                    "props": {
+                        "pageSize": "30"
+                    }
+                },
+                "detailEiCommand": {
+                    "class": "rocket\\impl\\ei\\component\\command\\common\\DetailEiCommand",
+                    "props": []
+                },
+                "deleteEiCommand": {
+                    "class": "rocket\\impl\\ei\\component\\command\\common\\DeleteEiCommand",
+                    "props": []
+                }
+            },
             "partialControlOrder": [],
             "overallControlOrder": [],
             "entryControlOrder": []
@@ -331,9 +400,15 @@
             "nature": "entity",
             "entity": "newsletter\\core\\bo\\HistoryLink",
             "dataSourceName": null,
-            "label": "History Link",
-            "pluralLabel": "History Links",
+            "label": "Link",
+            "pluralLabel": "Links",
             "iconType": null,
+            "filterData": {
+                "useAnd": true,
+                "items": [],
+                "groups": []
+            },
+            "defaultSort": [],
             "props": {
                 "id": {
                     "class": "rocket\\impl\\ei\\component\\prop\\numeric\\IntegerEiProp",
@@ -364,11 +439,13 @@
                         "readOnly": false,
                         "mandatory": true,
                         "draftable": false,
+                        "targetExtensions": [],
                         "targetRemovalStrategy": "prevent",
                         "embeddedAddEnabled": false,
-                        "filtered": true
+                        "filtered": true,
+                        "hiddenIfTargetEmpty": false
                     },
-                    "label": "History",
+                    "label": "Versand-Log",
                     "objectProperty": "history",
                     "entityProperty": "history"
                 },
@@ -402,10 +479,12 @@
                         "constant": false,
                         "readOnly": true,
                         "draftable": false,
+                        "targetExtensions": [],
                         "embeddedAddEnabled": false,
-                        "filtered": true
+                        "filtered": true,
+                        "hiddenIfTargetEmpty": false
                     },
-                    "label": "History Link Clicks",
+                    "label": "Klicks",
                     "objectProperty": "historyLinkClicks",
                     "entityProperty": "historyLinkClicks"
                 },
@@ -420,16 +499,43 @@
                         "readOnly": false,
                         "mandatory": false,
                         "draftable": false,
+                        "targetExtensions": [],
                         "targetRemovalStrategy": "prevent",
                         "embeddedAddEnabled": false,
-                        "filtered": true
+                        "filtered": true,
+                        "hiddenIfTargetEmpty": false
                     },
                     "label": "Newsletter Ci",
                     "objectProperty": "newsletterCi",
                     "entityProperty": "newsletterCi"
                 }
             },
-            "commands": [],
+            "commands": {
+                "overviewEiCommand": {
+                    "class": "rocket\\impl\\ei\\component\\command\\common\\OverviewEiCommand",
+                    "props": {
+                        "pageSize": "30"
+                    }
+                },
+                "detailEiCommand": {
+                    "class": "rocket\\impl\\ei\\component\\command\\common\\DetailEiCommand",
+                    "props": []
+                },
+                "editEiCommand": {
+                    "class": "rocket\\impl\\ei\\component\\command\\common\\EditEiCommand",
+                    "props": []
+                },
+                "addEiCommand": {
+                    "class": "rocket\\impl\\ei\\component\\command\\common\\AddEiCommand",
+                    "props": {
+                        "duplicateAllowed": true
+                    }
+                },
+                "deleteEiCommand": {
+                    "class": "rocket\\impl\\ei\\component\\command\\common\\DeleteEiCommand",
+                    "props": []
+                }
+            },
             "partialControlOrder": [],
             "overallControlOrder": [],
             "entryControlOrder": []
@@ -438,18 +544,29 @@
             "nature": "entity",
             "entity": "newsletter\\core\\bo\\HistoryLinkClick",
             "dataSourceName": null,
-            "label": "History Link Click",
-            "pluralLabel": "History Link Clicks",
+            "label": "Klick",
+            "pluralLabel": "Klicks",
             "iconType": null,
+            "filterData": {
+                "useAnd": true,
+                "items": [],
+                "groups": []
+            },
+            "defaultSort": [],
             "props": {
                 "id": {
                     "class": "rocket\\impl\\ei\\component\\prop\\numeric\\IntegerEiProp",
                     "props": {
+                        "displayInOverview": true,
+                        "displayInDetailView": true,
                         "displayInEditView": false,
                         "displayInAddView": false,
+                        "constant": false,
                         "readOnly": true,
-                        "minValue": 0,
-                        "maxValue": 4294967295
+                        "mandatory": false,
+                        "draftable": false,
+                        "minValue": "0",
+                        "maxValue": "4294967295"
                     },
                     "label": "Id",
                     "objectProperty": "id",
@@ -458,30 +575,93 @@
                 "historyEntry": {
                     "class": "rocket\\impl\\ei\\component\\prop\\relation\\ManyToOneSelectEiProp",
                     "props": {
-                        "mandatory": true
+                        "displayInOverview": true,
+                        "displayInDetailView": true,
+                        "displayInEditView": true,
+                        "displayInAddView": true,
+                        "constant": false,
+                        "readOnly": false,
+                        "mandatory": true,
+                        "draftable": false,
+                        "targetExtensions": [],
+                        "targetRemovalStrategy": "prevent",
+                        "embeddedAddEnabled": false,
+                        "filtered": true,
+                        "hiddenIfTargetEmpty": false
                     },
-                    "label": "History Entry",
+                    "label": "Log-Eintrag",
                     "objectProperty": "historyEntry",
                     "entityProperty": "historyEntry"
                 },
                 "historyLink": {
                     "class": "rocket\\impl\\ei\\component\\prop\\relation\\ManyToOneSelectEiProp",
                     "props": {
-                        "mandatory": true
+                        "displayInOverview": true,
+                        "displayInDetailView": true,
+                        "displayInEditView": true,
+                        "displayInAddView": true,
+                        "constant": false,
+                        "readOnly": false,
+                        "mandatory": true,
+                        "draftable": false,
+                        "targetExtensions": [],
+                        "targetRemovalStrategy": "prevent",
+                        "embeddedAddEnabled": false,
+                        "filtered": true,
+                        "hiddenIfTargetEmpty": false
                     },
-                    "label": "History Link",
+                    "label": "Link",
                     "objectProperty": "historyLink",
                     "entityProperty": "historyLink"
                 },
                 "recipient": {
                     "class": "rocket\\impl\\ei\\component\\prop\\relation\\ManyToOneSelectEiProp",
-                    "props": [],
-                    "label": "Recipient",
+                    "props": {
+                        "displayInOverview": true,
+                        "displayInDetailView": true,
+                        "displayInEditView": true,
+                        "displayInAddView": true,
+                        "constant": false,
+                        "readOnly": false,
+                        "mandatory": false,
+                        "draftable": false,
+                        "targetExtensions": [],
+                        "targetRemovalStrategy": "unset",
+                        "embeddedAddEnabled": false,
+                        "filtered": true,
+                        "hiddenIfTargetEmpty": false
+                    },
+                    "label": "Empf\u00e4nger",
                     "objectProperty": "recipient",
                     "entityProperty": "recipient"
                 }
             },
-            "commands": [],
+            "commands": {
+                "overviewEiCommand": {
+                    "class": "rocket\\impl\\ei\\component\\command\\common\\OverviewEiCommand",
+                    "props": {
+                        "pageSize": "30"
+                    }
+                },
+                "detailEiCommand": {
+                    "class": "rocket\\impl\\ei\\component\\command\\common\\DetailEiCommand",
+                    "props": []
+                },
+                "editEiCommand": {
+                    "class": "rocket\\impl\\ei\\component\\command\\common\\EditEiCommand",
+                    "props": []
+                },
+                "addEiCommand": {
+                    "class": "rocket\\impl\\ei\\component\\command\\common\\AddEiCommand",
+                    "props": {
+                        "duplicateAllowed": true
+                    }
+                },
+                "deleteEiCommand": {
+                    "class": "rocket\\impl\\ei\\component\\command\\common\\DeleteEiCommand",
+                    "props": []
+                }
+            },
             "partialControlOrder": [],
             "overallControlOrder": [],
             "entryControlOrder": []
@@ -495,6 +675,11 @@
             "iconType": null,
             "identityStringPattern": "{subject} [{id}]",
             "previewControllerLookupId": "newsletter\\core\\rocket\\NewsletterPreviewController",
+            "filterData": {
+                "useAnd": true,
+                "items": [],
+                "groups": []
+            },
             "defaultSort": {
                 "id": "DESC"
             },
@@ -614,6 +799,7 @@
                         "constant": false,
                         "readOnly": false,
                         "draftable": false,
+                        "targetExtensions": [],
                         "min": "0",
                         "targetRemovalStrategy": "prevent",
                         "targetOrderField": "orderIndex",
@@ -634,6 +820,7 @@
                         "constant": false,
                         "readOnly": false,
                         "draftable": false,
+                        "targetExtensions": [],
                         "targetRemovalStrategy": "prevent",
                         "embeddedAddEnabled": false,
                         "filtered": true,
@@ -653,11 +840,12 @@
                         "constant": false,
                         "readOnly": true,
                         "draftable": false,
+                        "targetExtensions": [],
                         "embeddedAddEnabled": false,
                         "filtered": true,
                         "hiddenIfTargetEmpty": false
                     },
-                    "label": "Logs",
+                    "label": "Versand-Logs",
                     "objectProperty": "histories",
                     "entityProperty": "histories"
                 }
@@ -679,7 +867,9 @@
                 },
                 "addEiCommand": {
                     "class": "rocket\\impl\\ei\\component\\command\\common\\AddEiCommand",
-                    "props": []
+                    "props": {
+                        "duplicateAllowed": true
+                    }
                 },
                 "deleteEiCommand": {
                     "class": "rocket\\impl\\ei\\component\\command\\common\\DeleteEiCommand",
@@ -1058,6 +1248,12 @@
             "label": "Newsletter Inhalt",
             "pluralLabel": "Newsletter Inhalte",
             "iconType": null,
+            "filterData": {
+                "useAnd": true,
+                "items": [],
+                "groups": []
+            },
+            "defaultSort": [],
             "props": {
                 "id": {
                     "class": "rocket\\impl\\ei\\component\\prop\\numeric\\IntegerEiProp",
@@ -1105,11 +1301,12 @@
                         "constant": false,
                         "readOnly": true,
                         "draftable": false,
-                        "targetRemovalStrategy": "prevent",
+                        "targetExtensions": [],
                         "embeddedAddEnabled": false,
-                        "filtered": true
+                        "filtered": true,
+                        "hiddenIfTargetEmpty": false
                     },
-                    "label": "History Links",
+                    "label": "Links",
                     "objectProperty": "historyLinks",
                     "entityProperty": "historyLinks"
                 }
@@ -1117,7 +1314,9 @@
             "commands": {
                 "overviewEiCommand": {
                     "class": "rocket\\impl\\ei\\component\\command\\common\\OverviewEiCommand",
-                    "props": []
+                    "props": {
+                        "pageSize": "30"
+                    }
                 },
                 "detailEiCommand": {
                     "class": "rocket\\impl\\ei\\component\\command\\common\\DetailEiCommand",
@@ -1129,7 +1328,9 @@
                 },
                 "addEiCommand": {
                     "class": "rocket\\impl\\ei\\component\\command\\common\\AddEiCommand",
-                    "props": []
+                    "props": {
+                        "duplicateAllowed": true
+                    }
                 },
                 "deleteEiCommand": {
                     "class": "rocket\\impl\\ei\\component\\command\\common\\DeleteEiCommand",
