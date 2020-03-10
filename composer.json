@@ -2,20 +2,23 @@
     "name": "hnm/newsletter-core",
     "type": "n2n-module",
     "description": "Newsletter core module for n2n",
-    "keywords": ["n2n-module", "n2n"],
+    "keywords": [
+        "n2n-module",
+        "n2n"
+    ],
     "homepage": "https://n2n.rocks/",
     "license": "MIT",
     "authors": [
         {
-            "name": "Thomas Günther",
+            "name": "Thomas G\u00fcnther",
             "email": "guenther@hnm.ch"
         }
     ],
     "require": {
         "php": ">=7.0",
-        "n2n/n2n-composer-module-installer": "7.1.x-dev",
-        "n2n/rocket": "2.0.x-dev",
-        "swiftmailer/swiftmailer" : "v6.0.2"
+        "n2n/n2n-composer-module-installer": "~7.1.3",
+        "n2n/rocket": "^2.0.12",
+        "swiftmailer/swiftmailer": "v6.0.2"
     },
     "autoload": {
         "psr-4": {
