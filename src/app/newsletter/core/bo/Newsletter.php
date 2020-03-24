@@ -36,6 +36,7 @@ class Newsletter extends ObjectAdapter {
 	public function __construct() {
 		$this->created = new \DateTime();
 		$this->newsletterCis = new \ArrayObject();
+		$this->recipientCategories = new \ArrayObject();
 	}
 
 	private function _preUpdate() {
