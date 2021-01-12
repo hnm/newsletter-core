@@ -13,7 +13,6 @@ use rocket\ei\util\EiuCtrl;
 
 class StatsController extends ControllerAdapter {
 	
-	
 	const ACTION_REMOVE_FAILED_HISTORY_ENTRIES = 'rfhe';
 	const ACTION_DELETE_RECIPIENTS = 'dr';
 	const ACTION_RESET_IN_PROGRESS_HISTORY_ENTRIES = 'riphe';
