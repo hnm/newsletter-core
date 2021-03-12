@@ -23,6 +23,7 @@ class NumRecipientEiProp extends DisplayableEiPropAdapter {
 		$newsletterDao = $eiu->lookup(NewsletterDao::class);
 		CastUtils::assertTrue($newsletterDao instanceof NewsletterDao);
 		
+		$num = $newsletterDao->getNumRecipientsForNewsletter($eiu->entry()->getEntityObj());
 		return $eiu->factory()->newGuiField(SiFields::crumbOut(SiCrumb::createLabel(
 				$newsletterState->getDtc()->t('num_recipients_receive_newsletter_txt', array('num' => $num)))));
 	}
