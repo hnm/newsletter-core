@@ -53,17 +53,17 @@ class SendEiCommand extends IndependentEiCommandAdapter {
 						$dtc->t('common_no_label')));
 
 		$eiuControlFactory = $eiu->factory()->controls();
-		return [$eiuControlFactory->newCallback(self::CONTROL_KEY, $siButton, function(Eiu $eiu) {
-			return $this->send($eiu);
+		return [$eiuControlFactory->newCallback(self::CONTROL_KEY, $siButton, function(Eiu $eiu) use ($numRecipients) {
+			return $this->send($eiu, $numRecipients);
 		})];
 	}
 
-	private function send(Eiu $eiu) {
+	private function send(Eiu $eiu, int $numRecipients) {
 		$entry = $eiu->object();
 		$newsletter = $entry->getEntityObj();
 		CastUtils::assertTrue($newsletter instanceof Newsletter);
 		$newsletterDao = $eiu->lookup(NewsletterDao::class);
-		$numRecipients = $newsletterDao->getNumRecipientsForNewsletter($newsletter);
+// 		$numRecipients = $newsletterDao->getNumRecipientsForNewsletter($newsletter);
 // 		if ($numRecipients == 0) {
 // 			throw new PageNotFoundException('No recipients for newsletter "' . $newsletter->getSubject()
 // 					. '" available.');
