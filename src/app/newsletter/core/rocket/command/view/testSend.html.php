@@ -22,32 +22,8 @@
 	//$eiHtml = new EiuHtmlbuilder($view);
 ?>
 
+<?php $html->messageList() ?>
 
-<!--<div class="rocket-group rocket-simple-group">-->
-<!--    <label>-->
-<!--		--><?php //$html->out($product->t($view->getN2nLocale())->getName()) ?>
-<!--    </label>-->
-<!--    <div class="rocket-structure-content">-->
-<!--		--><?php //$formHtml->open($productDataForm) ?>
-<!--		--><?php //$formHtmlMeta->arrayProps('productGroupForms', function () use ($formHtml, $formHtmlMeta) { ?>
-<!--			--><?php //$magWrappers = $formHtmlMeta->getMapValue('magForm')->getObject()->getMagCollection()
-//				->getMagWrappers()?>
-<!--			--><?php //if (count($magWrappers) === 0) return; ?>
-<!--			--><?php //$formHtmlMeta->objectProps('magForm', function () use ($formHtml) { ?>
-<!--				--><?php //$formHtml->magOpen('div', '', array('class' => 'rocket-group rocket-simple-group')) ?>
-<!--				--><?php //$formHtml->magLabel() ?>
-<!--                <div class="rocket-structure-content">-->
-<!--					--><?php //$formHtml->magField() ?>
-<!--                </div>-->
-<!--				--><?php //$formHtml->magClose(); ?>
-<!--			--><?php //}) ?>
-<!--		--><?php //}) ?>
-<!---->
-<!--		--><?php //$formHtml->buttonSubmit('save', new Raw('<i class="fa fa-save"></i><span>Speichern</span>'),
-//			array('class' => 'btn btn-primary rocket-button-control')) ?>
-<!--		--><?php //$formHtml->close() ?>
-<!--    </div>-->
-<!--</div>-->
 <?php $formHtml->open($testSendForm, null, 'post', array('class' => 'rocket-impl-form')) ?>
 	<div class="rocket-entry-form">
 		<div class="rocket-group rocket-simple-group">
