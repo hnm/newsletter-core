@@ -64,13 +64,9 @@
             </div>
 		</div>
 
-		<div class="rocket-zone-commands">
-			<div>
-				<?php $formHtml->buttonSubmit('send', 
-						new Raw('<i class="fa fas fa-envelope-open"></i><span>'
-                                . $view->getL10nText('rocket_script_cmd_test_send_label') . '</span>'),
-						array('class' => 'btn btn-primary')) ?>
-			</div>
-		</div>
+        <?php $formHtml->buttonSubmit('send',
+                new Raw('<i class="fa fas fa-envelope-open"></i><span>'
+                        . $view->getL10nText('rocket_script_cmd_test_send_label') . '</span>'),
+                    array('class' => 'btn btn-primary')) ?>
 	</div>
 <?php $formHtml->close() ?>
