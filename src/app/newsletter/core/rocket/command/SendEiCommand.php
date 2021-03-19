@@ -24,7 +24,7 @@ class SendEiCommand extends IndependentEiCommandAdapter {
 	function createEntryGuiControls(Eiu $eiu): array {
 		$eiuEntry = $eiu->entry();
 
-		if ($eiuEntry->isNew() || $eiu->frame()->isExecutedBy($this)) {
+		if ($eiuEntry->isNew()) {
 			return array();
 		}
 
@@ -33,9 +33,10 @@ class SendEiCommand extends IndependentEiCommandAdapter {
 
  		$newsletter = $eiu->entry()->getEntityObj();
  		CastUtils::assertTrue($newsletter instanceof Newsletter);
-
  		$numRecipients = $newsletterDao->getNumRecipientsForNewsletter($newsletter);
- 		if ($numRecipients == 0) return [];
+ 		if ($numRecipients == 0) {
+ 			return [];
+ 		}
 
  		$newsletterState = $eiu->lookup(NewsletterState::class);
  		CastUtils::assertTrue($newsletterState instanceof NewsletterState);
@@ -63,10 +64,10 @@ class SendEiCommand extends IndependentEiCommandAdapter {
 		CastUtils::assertTrue($newsletter instanceof Newsletter);
 		$newsletterDao = $eiu->lookup(NewsletterDao::class);
 		$numRecipients = $newsletterDao->getNumRecipientsForNewsletter($newsletter);
-		if ($numRecipients == 0) {
-			throw new PageNotFoundException('No recipients for newsletter "' . $newsletter->getSubject()
-					. '" available.');
-		}
+// 		if ($numRecipients == 0) {
+// 			throw new PageNotFoundException('No recipients for newsletter "' . $newsletter->getSubject()
+// 					. '" available.');
+// 		}
 		$newsletterDao->createHistoryForNewsletter($newsletter);
 		$newsletterState = $eiu->lookup(NewsletterState::class);
 		$dtc = $newsletterState->getDtc();
