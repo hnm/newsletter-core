@@ -1,14 +1,15 @@
 <?php
 namespace newsletter\core\rocket\command;
 
+use gallery\core\model\Breadcrumb;
 use n2n\web\http\controller\ControllerAdapter;
 use n2n\l10n\MessageContainer;
 use newsletter\core\model\NewsletterState;
-use rocket\core\model\Breadcrumb;
 use newsletter\core\bo\HistoryEntry;
 use n2n\web\http\PageNotFoundException;
 use newsletter\core\rocket\command\model\StatsModel;
 use newsletter\core\rocket\NewsletterManageDao;
+use rocket\ei\util\Eiu;
 use rocket\ei\util\EiuCtrl;
 
 class StatsController extends ControllerAdapter {
@@ -22,21 +23,21 @@ class StatsController extends ControllerAdapter {
 	private $dtc;
 	private $newsletterState;
 	private $mc;
-	
-	public function prepare(EiuCtrl $eiuCtrl, NewsletterState $newsletterState, MessageContainer $mc) {
-		$this->eiuCtrl = $eiuCtrl;
+
+	private function _init(NewsletterState $newsletterState, MessageContainer $mc) {
 		$this->newsletterState = $newsletterState;
 		$this->mc = $mc;
 		$this->dtc = $this->newsletterState->getDtc();
 		$this->dtc->assignModule('rocket');
 	}
-	
+
 	public function index(StatsModel $statsModel, $newsletterIdRep) {
+		$this->eiuCtrl = EiuCtrl::from($this->cu());
+
 		$this->setup($newsletterIdRep);
-		$this->eiuCtrl->applyCommonBreadcrumbs($this->newsletter, $this->dtc->t('stats_txt'));
-		
-		$statsModel->setup($this->newsletter, $this->eiuCtrl);
-		
+//		$this->eiuCtrl->pushAddBreadcrumb($this->eiuCtrl,('newsletter') . $this->dtc->t('stats_txt'));
+
+
 		$view = $this->createView('view\stats.html', array('statsModel' => $statsModel));
 		$view->setDynamicTextCollection($this->dtc);
 		
@@ -44,7 +45,7 @@ class StatsController extends ControllerAdapter {
 	}
 	
 	public function doDetail($newsletterIdRep, $status) {
-		$this->setup($newsletterIdRep, array(new Breadcrumb($this->getUrlToController($newsletterIdRep), $this->dtc->t('stats_txt')), 
+		$this->setup($newsletterIdRep, array(new Breadcrumb($this->getUrlToController($newsletterIdRep), $this->dtc->t('stats_txt')),
 				new Breadcrumb(null, $status)));
 		
 		if (!in_array($status, HistoryEntry::getPossibleStatus())) {

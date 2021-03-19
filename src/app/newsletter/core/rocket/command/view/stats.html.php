@@ -21,6 +21,7 @@
 	
 	$newsletterDao = $statsModel->getNewsletterDao();
 	$newsletter = $statsModel->getNewsletter();
+
 ?>
 
 <h2><?php $html->text('newsletter_stats_txt') ?></h2>
@@ -34,7 +35,7 @@
 	</thead>
 	<tbody>
 		<?php foreach (HistoryEntry::getPossibleStatus() as $status) : ?>
-			<?php $num = $newsletterDao->getNumHistoryEntriesForNewsletter($newsletter, $status) ?>
+            <?php $num = $newsletterDao->getNumHistoryEntriesForNewsletter($newsletter, $status) ?>
 			<?php $totalNewslettersSent += $num ?>
 			<?php $numNewsletterLoaded += ($status === HistoryEntry::STATUS_READ) ? $num : 0 ?>
 			<tr>

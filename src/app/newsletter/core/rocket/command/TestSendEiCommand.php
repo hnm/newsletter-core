@@ -11,6 +11,8 @@ use n2n\core\container\N2nContext;
 use n2n\util\uri\Path;
 use rocket\impl\ei\component\command\adapter\IndependentEiCommandAdapter;
 use rocket\ei\util\Eiu;
+use rocket\si\control\SiButton;
+use rocket\si\control\SiIconType;
 
 class TestSendEiCommand extends IndependentEiCommandAdapter {
 	const CONTROL_KEY = 'testSend';
@@ -18,42 +20,37 @@ class TestSendEiCommand extends IndependentEiCommandAdapter {
 	protected function prepare() {
 	}
 
-// 	/**
-// 	 * {@inheritDoc}
-// 	 * @see \rocket\spec\ei\manage\control\EntryControlComponent::getEntryControlOptions()
-// 	 */
-// 	public function getEntryControlOptions(N2nContext $n2nContext, N2nLocale $n2nLocale): array {
-// 		$dtc = new DynamicTextCollection('newsletter', $n2nLocale);
-// 		return array(self::CONTROL_KEY => $dtc->t('test_send_txt'));
-// 	}
+ 	public function getEntryControlOptions(N2nContext $n2nContext, N2nLocale $n2nLocale): array {
+ 		$dtc = new DynamicTextCollection('newsletter', $n2nLocale);
+ 		return array(self::CONTROL_KEY => $dtc->t('test_send_txt'));
+ 	}
 
-// 	/**
-// 	 * {@inheritDoc}
-// 	 * @see \rocket\spec\ei\manage\control\EntryControlComponent::createEntryControls()
-// 	 */
-// 	public function createEntryControls(Eiu $eiu, HtmlView $view): array {
-// 		$cf = $eiu->frame()->controlFactory($this);
-		
-// 		$newsletterState = $view->lookup(NewsletterState::class);
-// 		CastUtils::assertTrue($newsletterState instanceof NewsletterState);
-		
-// 		$dtc = $newsletterState->getDtc();
-		
-// 		$controlButton = new ControlButton($dtc->t('test_send_txt'));
-// 		$controlButton->setIconType(IconType::ICON_CHECK);
-		
-// 		$urlExt = (new Path(array($eiu->entry()->getPid())))
-// 				->toUrl(array('refPath' => (string) $eiu->frame()->getCurrentUrl()));
-		
-// 		return array(self::CONTROL_KEY => $cf->createJhtml($controlButton, $urlExt));
-// 	}
+	function createEntryGuiControls(Eiu $eiu): array {
+		$eiuEntry = $eiu->entry();
 
-// 	/**
-// 	 * {@inheritDoc}
-// 	 * @see \rocket\spec\ei\component\command\EiCommand::lookupController()
-// 	 */
-// 	public function lookupController(Eiu $eiu): Controller {
-// 		return $eiu->lookup(TestSendController::class);
+		if ($eiuEntry->isNew() || $eiu->frame()->isExecutedBy($this)) {
+			return array();
+		}
+
+		$newsletterState = $eiu->lookup(NewsletterState::class);
+ 		CastUtils::assertTrue($newsletterState instanceof NewsletterState);
+
+ 		$dtc = $newsletterState->getDtc();
+		$siButton = SiButton::secondary($dtc->t('test_send_txt'), SiIconType::ICON_CHECK)
+			->setTooltip($dtc->t('test_send_tooltip', array('entry' => $eiu->frame()->getGenericLabel())))
+			->setImportant(true);
+
+		$eiuControlFactory = $eiu->factory()->controls();
+
+		return [$eiuControlFactory->newCmdRef(self::CONTROL_KEY, $siButton, new Path([$eiu->entry()->getPid()]))];
+	}
+
+ 	/**
+ 	 * {@inheritDoc}
+ 	 * @see \rocket\spec\ei\component\command\EiCommand::lookupController()
+ 	 */
+ 	public function lookupController(Eiu $eiu): Controller {
+ 		return $eiu->lookup(TestSendController::class);
 		
-// 	}
+ 	}
 }
