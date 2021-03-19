@@ -22,6 +22,8 @@
 	//$eiHtml = new EiuHtmlbuilder($view);
 ?>
 
+<?php $html->messageList() ?>
+
 <?php $formHtml->open($testSendForm, null, 'post', array('class' => 'rocket-impl-form')) ?>
 	<div class="rocket-entry-form">
 		<div class="rocket-group">
