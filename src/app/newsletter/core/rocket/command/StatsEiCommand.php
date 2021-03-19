@@ -38,11 +38,11 @@ class StatsEiCommand extends IndependentEiCommandAdapter {
  		$dtc = $newsletterState->getDtc();
 
  		$controlButton = SiButton::secondary($dtc->t('stats_txt'));
- 		$controlButton->setIconType(SiIconType::ICON_B_DASHCUBE);
+ 		$controlButton->setIconType(SiIconType::ICON_TACHOMETER_ALT);
 
 
  		$siButton = SiButton::secondary($dtc->t('status_txt'))
-			->setIconType(SiIconType::ICON_B_DASHCUBE)
+			->setIconType(SiIconType::ICON_TACHOMETER_ALT)
 			->setImportant(true);
 
 		$eiuControlFactory = $eiu->factory()->controls();
