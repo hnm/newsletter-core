@@ -1,6 +1,7 @@
 <?php
 namespace newsletter\core\rocket\command;
 
+use n2n\l10n\Message;
 use n2n\util\type\CastUtils;
 use n2n\util\uri\Path;
 use n2n\web\http\controller\Controller;
@@ -72,8 +73,11 @@ class SendEiCommand extends IndependentEiCommandAdapter {
 		$newsletterState = $eiu->lookup(NewsletterState::class);
 		$dtc = $newsletterState->getDtc();
 
-		return $eiu->factory()->newControlResponse()->message($dtc->t('send_success',
-				array('numRecipients' => $numRecipients, 'subject' => $newsletter->getSubject())));
+		$message = Message::create(
+				$dtc->t('send_success',
+						array('numRecipients' => $numRecipients, 'subject' => $newsletter->getSubject())),
+			Message::SEVERITY_INFO);
+		return $eiu->factory()->newControlResponse()->message($message);
 	}
 
 	/**
