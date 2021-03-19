@@ -10,7 +10,6 @@ use newsletter\core\model\NewsletterState;
 use rocket\ei\util\Eiu;
 use rocket\impl\ei\component\command\adapter\IndependentEiCommandAdapter;
 use rocket\si\control\SiButton;
-use rocket\si\control\SiConfirm;
 use rocket\si\control\SiIconType;
 
 class StatsEiCommand extends IndependentEiCommandAdapter {

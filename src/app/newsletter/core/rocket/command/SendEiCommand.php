@@ -4,6 +4,7 @@ namespace newsletter\core\rocket\command;
 use n2n\util\type\CastUtils;
 use n2n\util\uri\Path;
 use n2n\web\http\controller\Controller;
+use n2n\web\http\PageNotFoundException;
 use newsletter\core\bo\Newsletter;
 use newsletter\core\model\NewsletterDao;
 use newsletter\core\model\NewsletterState;
@@ -51,7 +52,27 @@ class SendEiCommand extends IndependentEiCommandAdapter {
 						$dtc->t('common_no_label')));
 
 		$eiuControlFactory = $eiu->factory()->controls();
-		return [$eiuControlFactory->newCmdRef(self::CONTROL_KEY, $siButton, new Path([$eiu->entry()->getPid()]))];
+		return [$eiuControlFactory->newCallback(self::CONTROL_KEY, $siButton, function(Eiu $eiu) {
+			return $this->send($eiu);
+		})];
+	}
+
+	private function send(Eiu $eiu) {
+		$entry = $eiu->object();
+		$newsletter = $entry->getEntityObj();
+		CastUtils::assertTrue($newsletter instanceof Newsletter);
+		$newsletterDao = $eiu->lookup(NewsletterDao::class);
+		$numRecipients = $newsletterDao->getNumRecipientsForNewsletter($newsletter);
+		if ($numRecipients == 0) {
+			throw new PageNotFoundException('No recipients for newsletter "' . $newsletter->getSubject()
+					. '" available.');
+		}
+		$newsletterDao->createHistoryForNewsletter($newsletter);
+		$newsletterState = $eiu->lookup(NewsletterState::class);
+		$dtc = $newsletterState->getDtc();
+
+		return $eiu->factory()->newControlResponse()->message($dtc->t('send_success',
+				array('numRecipients' => $numRecipients, 'subject' => $newsletter->getSubject())));
 	}
 
 	/**

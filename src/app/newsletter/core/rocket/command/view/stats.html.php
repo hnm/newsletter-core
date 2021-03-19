@@ -12,10 +12,8 @@
 
 	$statsModel = $view->getParam('statsModel');
 	$view->assert($statsModel instanceof StatsModel);
-	
-	$view->useTemplate('\rocket\core\view\template.html',
-			array('title' => $html->getL10nText('newsletter_stats_txt')));
-	
+
+    $view->useTemplate('\rocket\si\content\impl\iframe\view\iframeTemplate.html');
 	$numNewsletterLoaded = 0;
 	$totalNewslettersSent = 0; 
 	
@@ -89,11 +87,3 @@
 
 <p><?php $html->text('avg_clicks_per_newsletter_info',
 		array('avg' => sprintf("%01.2f", ($numNewsletterLoaded > 0) ? $numClicks / $numNewsletterLoaded : 0))) ?></p>
-
-<div class="rocket-zone-commands">
-	<div>
-		<?php $html->link($statsModel->buildDetailUrl(), 
-			new Raw('<i class="fa fa-times-circle"></i><span>' . $view->getL10nText('common_cancel_label') . '</span>'),
-					array('class' => 'btn btn-secondary')) ?>
-	</div>
-</div>

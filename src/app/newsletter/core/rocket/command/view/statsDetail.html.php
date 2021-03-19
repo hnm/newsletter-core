@@ -27,9 +27,11 @@
 	$view->assert($eiuFrame instanceof EiuFrame);
 	
 	$numEntries = 0;
-	
-	$view->useTemplate('\rocket\core\view\template.html',
-			array('title' => $view->getL10nText('stats_detail_txt', array('status' => $view->getL10nText('status_' . $status . '_txt')))));
+    $view->useTemplate('\rocket\si\content\impl\iframe\view\iframeTemplate.html');
+    $html->meta()->setTitle($view->getL10nText('stats_detail_txt',
+            array('status' => $view->getL10nText('status_' . $status . '_txt'))));
+//	$view->useTemplate('\rocket\core\view\template.html',
+//			array('title' => $view->getL10nText('stats_detail_txt', array('status' => $view->getL10nText('status_' . $status . '_txt')))));
 ?>
 
 <h3><?php $html->text('common_properties_title') ?></h3>
