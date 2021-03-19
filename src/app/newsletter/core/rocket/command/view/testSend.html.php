@@ -22,42 +22,70 @@
 	//$eiHtml = new EiuHtmlbuilder($view);
 ?>
 
+
+<!--<div class="rocket-group rocket-simple-group">-->
+<!--    <label>-->
+<!--		--><?php //$html->out($product->t($view->getN2nLocale())->getName()) ?>
+<!--    </label>-->
+<!--    <div class="rocket-structure-content">-->
+<!--		--><?php //$formHtml->open($productDataForm) ?>
+<!--		--><?php //$formHtmlMeta->arrayProps('productGroupForms', function () use ($formHtml, $formHtmlMeta) { ?>
+<!--			--><?php //$magWrappers = $formHtmlMeta->getMapValue('magForm')->getObject()->getMagCollection()
+//				->getMagWrappers()?>
+<!--			--><?php //if (count($magWrappers) === 0) return; ?>
+<!--			--><?php //$formHtmlMeta->objectProps('magForm', function () use ($formHtml) { ?>
+<!--				--><?php //$formHtml->magOpen('div', '', array('class' => 'rocket-group rocket-simple-group')) ?>
+<!--				--><?php //$formHtml->magLabel() ?>
+<!--                <div class="rocket-structure-content">-->
+<!--					--><?php //$formHtml->magField() ?>
+<!--                </div>-->
+<!--				--><?php //$formHtml->magClose(); ?>
+<!--			--><?php //}) ?>
+<!--		--><?php //}) ?>
+<!---->
+<!--		--><?php //$formHtml->buttonSubmit('save', new Raw('<i class="fa fa-save"></i><span>Speichern</span>'),
+//			array('class' => 'btn btn-primary rocket-button-control')) ?>
+<!--		--><?php //$formHtml->close() ?>
+<!--    </div>-->
+<!--</div>-->
 <?php $formHtml->open($testSendForm, null, 'post', array('class' => 'rocket-impl-form')) ?>
 	<div class="rocket-entry-form">
-		<div class="rocket-group">
+		<div class="rocket-group rocket-simple-group">
 			<label>Empfänger</label>
-			<div class="rocket-control">
-				<div class="rocket-editable rocket-item rocket-required">
-					<label>E-Mail<?php //$eiHtml->fieldLabel('email') ?></label>
-					<div class="rocket-control">
-						<?php $formHtml->input('email', array('class' => 'form-control')) ?>
-					</div>
-				</div>
-				<div class="rocket-block rocket-editable rocket-item">
-					<label>Vorname<?php //$eiHtml->fieldLabel('firstName') ?></label>
-					<div class="rocket-control">
-						<div><?php $formHtml->input('firstName', array('class' => 'form-control')) ?></div>
-					</div>
-				</div>
-				<div class="rocket-editable rocket-item">
-					<label>Nachname<?php //$eiHtml->fieldLabel('lastName') ?></label>
-					<div class="rocket-control">
-						<div><?php $formHtml->input('lastName', array('class' => 'form-control')) ?></div>
-					</div>
-				</div>
-				<div class="rocket-editable rocket-item">
-					<label>Geschlecht<?php //$eiHtml->fieldLabel('gender') ?></label>
-					<div class="rocket-control">
-						<?php $newsletterHtml->genderRadio('gender') ?>
-					</div>
-				</div>
-				<div class="rocket-editable rocket-item">
-					<label>Ansprechen mit<?php //$eiHtml->fieldLabel(null, 'saluteWith') ?></label>
-					<div class="rocket-control">
-						<?php $newsletterHtml->saluationRadio('saluteWith') ?>
-					</div>
-				</div>
-			</div>
+            <div class="rocket-structure-content">
+                <div class="rocket-control">
+                    <div class="rocket-editable rocket-item rocket-required">
+                        <label>E-Mail<?php //$eiHtml->fieldLabel('email') ?></label>
+                        <div class="rocket-control">
+                            <?php $formHtml->input('email', array('class' => 'form-control')) ?>
+                        </div>
+                    </div>
+                    <div class="rocket-block rocket-editable rocket-item">
+                        <label>Vorname<?php //$eiHtml->fieldLabel('firstName') ?></label>
+                        <div class="rocket-control">
+                            <div><?php $formHtml->input('firstName', array('class' => 'form-control')) ?></div>
+                        </div>
+                    </div>
+                    <div class="rocket-editable rocket-item">
+                        <label>Nachname<?php //$eiHtml->fieldLabel('lastName') ?></label>
+                        <div class="rocket-control">
+                            <div><?php $formHtml->input('lastName', array('class' => 'form-control')) ?></div>
+                        </div>
+                    </div>
+                    <div class="rocket-editable rocket-item">
+                        <label>Geschlecht<?php //$eiHtml->fieldLabel('gender') ?></label>
+                        <div class="rocket-control">
+                            <?php $newsletterHtml->genderRadio('gender') ?>
+                        </div>
+                    </div>
+                    <div class="rocket-editable rocket-item">
+                        <label>Ansprechen mit<?php //$eiHtml->fieldLabel(null, 'saluteWith') ?></label>
+                        <div class="rocket-control">
+                            <?php $newsletterHtml->saluationRadio('saluteWith') ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
 		</div>
 
 		<div class="rocket-zone-commands">
