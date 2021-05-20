@@ -25,7 +25,6 @@
 		"swiftmailer/swiftmailer" : "v6.0.2"
 	},
 	"require-dev" : {
-		"hnm/newsletter-impl": "^2.1.0",
         "n2n/n2nutil-bootstrap": "^7.2.33",
         "phpunit/phpunit" : "^9.5"
 	},
