@@ -25,7 +25,6 @@
 		"swiftmailer/swiftmailer" : "v6.0.2"
 	},
 	"require-dev" : {
-        "n2n/n2nutil-bootstrap": "^7.2.33",
         "phpunit/phpunit" : "^9.5"
 	},
 	"autoload" : {
