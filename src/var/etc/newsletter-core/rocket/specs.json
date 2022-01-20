@@ -13,7 +13,7 @@
                 "groups": []
             },
             "defaultSort": {
-                "email": "DESC"
+                "created": "DESC"
             },
             "props": {
                 "email": {
