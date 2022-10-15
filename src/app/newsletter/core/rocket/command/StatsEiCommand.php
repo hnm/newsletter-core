@@ -45,7 +45,7 @@ class StatsEiCommand extends IndependentEiCommandAdapter {
 			->setIconType(SiIconType::ICON_TACHOMETER_ALT)
 			->setImportant(true);
 
-		$eiuControlFactory = $eiu->factory()->controls();
+		$eiuControlFactory = $eiu->factory()->guiControl();
 
 		return [$eiuControlFactory->newCmdRef(self::CONTROL_KEY, $siButton, new Path([$eiu->entry()->getPid()]))];
  	}

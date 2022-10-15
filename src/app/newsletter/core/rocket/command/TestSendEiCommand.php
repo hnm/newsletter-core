@@ -40,7 +40,7 @@ class TestSendEiCommand extends IndependentEiCommandAdapter {
 			->setTooltip($dtc->t('test_send_tooltip', array('entry' => $eiu->frame()->getGenericLabel())))
 			->setImportant(true);
 
-		$eiuControlFactory = $eiu->factory()->controls();
+		$eiuControlFactory = $eiu->factory()->guiControl();
 
 		return [$eiuControlFactory->newCmdRef(self::CONTROL_KEY, $siButton, new Path([$eiu->entry()->getPid()]))];
 	}

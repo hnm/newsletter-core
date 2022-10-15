@@ -53,7 +53,7 @@ class SendEiCommand extends IndependentEiCommandAdapter {
 						$dtc->t('common_yes_label'),
 						$dtc->t('common_no_label')));
 
-		$eiuControlFactory = $eiu->factory()->controls();
+		$eiuControlFactory = $eiu->factory()->guiControl();
 		return [$eiuControlFactory->newCallback(self::CONTROL_KEY, $siButton, function(Eiu $eiu) use ($numRecipients) {
 			return $this->send($eiu, $numRecipients);
 		})];
