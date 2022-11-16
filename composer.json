@@ -19,7 +19,6 @@
 		"vendor-dir" : "src/vendor"
 	},
 	"require" : {
-		"php" : ">=7.0",
 		"n2n/n2n-composer-module-installer" : "^7.1.3",
 		"n2n/rocket" : "^3",
 		"swiftmailer/swiftmailer" : "v6.0.2"
