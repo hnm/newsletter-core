@@ -129,7 +129,7 @@ class NewsletterDao implements RequestScoped {
 				. $this->prepareRecipientsSql($newsletter, $params) . ") a";
 		$stmt = $this->em->getPdo()->prepare($sql);
 		$stmt->execute($params);
-		$result = $stmt->fetch(Pdo::FETCH_ASSOC);
+		$result = $stmt->fetch(\PDO::FETCH_ASSOC);
 		return intval($result['num']);
 	}
 	
@@ -206,7 +206,7 @@ class NewsletterDao implements RequestScoped {
 		$sql .= ' GROUP BY nhe.email) a';
 		$stmt = $this->em->getPdo()->prepare($sql);
 		$stmt->execute($params);
-		$result = $stmt->fetch(Pdo::FETCH_ASSOC);
+		$result = $stmt->fetch(\PDO::FETCH_ASSOC);
 		return intval($result['num']);
 	}
 	
