@@ -12,10 +12,9 @@
         }
     ],
     "require": {
-        "php": ">=7.0",
-        "n2n/n2n-composer-module-installer": "7.1.x-dev",
-        "n2n/rocket": "2.0.x-dev",
-        "swiftmailer/swiftmailer" : "v6.0.2"
+        "n2n/n2n-composer-module-installer": "~7.1.2",
+        "n2n/rocket": "^2.0.12",
+        "swiftmailer/swiftmailer": "v6.0.2"
     },
     "autoload": {
         "psr-4": {
