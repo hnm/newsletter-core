@@ -19,6 +19,7 @@ use newsletter\core\bo\HistoryLink;
 use newsletter\core\bo\HistoryLinkClick;
 use n2n\core\config\N2nLocaleConfig;
 use n2n\util\type\ArgUtils;
+use newsletter\core\bo\History;
 
 class NewsletterDao implements RequestScoped {
 	const HISTORY_ENTRY_CODE_LENGTH = 32;
@@ -119,6 +120,18 @@ class NewsletterDao implements RequestScoped {
 		$this->em->persist($historyLink);
 		// @todo: causes exception. links must be flushed, in order to have id!
 		$this->em->flush();
+	}
+	
+	public function persistNewsletter(Newsletter $newsletter) {
+		$this->em->persist($newsletter);
+	}
+	
+	public function persistHistory(History $history) {
+		$this->em->persist($history);
+	}
+	
+	public function persistHistoryEntry(HistoryEntry $historyEntry) {
+		$this->em->persist($historyEntry);
 	}
 	
 	public function getNumRecipientsForNewsletter(Newsletter $newsletter) {
@@ -252,8 +265,29 @@ class NewsletterDao implements RequestScoped {
 
 	public function createHistoryForNewsletter(Newsletter $newsletter) {
 		$this->applyBlacklist();
-		N2N::registerShutdownListener(new HistoryEntryGenerator($this->template, $newsletter, $this->em, 
-				$this, $this->tm, $this->newsletterState));
+		$this->em->flush();
+		
+		if (count($this->getRecipientEmailAddressesForNewsletter($newsletter)) === 0) {
+			return;
+		}
+		
+		$this->template->setup($newsletter);
+		
+		$history = new History();
+		$history->setNewsletter($newsletter);
+		$history->setNewsletterHtml($this->template->getHtml());
+		$history->setNewsletterText($this->template->getText());
+		$history->setPreparedDate(null);
+		$history->checkNewsletterHtml($this->newsletterState, $this->newsletterDao);
+		$this->em->persist($history);
+	}
+	
+	/**
+	 * @return History
+	 */
+	public function getFirstUnpreparedHistory() {
+		return $this->em->createNqlCriteria('SELECT h FROM history h WHERE h.preparedDate IS NULL ORDER BY id ASC')
+				->limit(1)->toQuery()->fetchSingle();
 	}
 	
 	public function getOrCreateRecipient(string $firstName, string $lastName, string $email, string $gender, string $saluteWith, 

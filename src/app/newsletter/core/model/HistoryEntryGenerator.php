@@ -1,64 +1,36 @@
 <?php
 namespace newsletter\core\model;
 
-use n2n\core\ShutdownListener;
-use newsletter\core\bo\Newsletter;
+use n2n\context\RequestScoped;
+use n2n\core\container\TransactionManager;
 use newsletter\core\bo\History;
 use newsletter\core\bo\HistoryEntry;
-use n2n\persistence\orm\EntityManager;
-use n2n\core\container\TransactionManager;
 
-class HistoryEntryGenerator implements ShutdownListener {
-	private $em;
-	private $newsletter;
+class HistoryEntryGenerator implements RequestScoped {
 	private $newsletterDao;
-	private $tm;
-	private $template;
 	private $newsletterState;
+	private $tm;
 	
-	public function __construct(Template $template, Newsletter $newsletter, EntityManager $em,
-			NewsletterDao $newsletterDao, TransactionManager $tm, NewsletterState $newsletterState) {
-		$this->em = $em;
-		$this->template = $template;
-		$template->setup($newsletter);
-		$this->newsletter = $newsletter;
+	public function _init(NewsletterDao $newsletterDao, NewsletterState $newsletterState, TransactionManager $tm) {
 		$this->newsletterDao = $newsletterDao;
-		$this->tm = $tm;
 		$this->newsletterState = $newsletterState;
+		$this->tm = $tm;
 	}
-	/* (non-PHPdoc)
-	 * @see \n2n\core\ShutdownListener::onShutdown()
+	
+	/**
+	 * Ensure the Newsletterstate is setup properly before calling this method
 	 */
-	public function onShutdown() {
-		set_time_limit(0);
-		$em = $this->em;
-		
+	public function buildHistoryEntriesForFirstUnpreparedHistory() {
 		$tx = $this->tm->createTransaction();
-		$newsletter = $this->newsletterDao->getNewsletterById($this->newsletter->getId());
-		//todo: get recipients directly
-		$emailAddresses = $this->newsletterDao->getRecipientEmailAddressesForNewsletter($newsletter);
-		if (count($emailAddresses) === 0) {
-			$tx->commit();
-			return;
-		}
-		
-		$history = new History();
-		$history->setNewsletter($newsletter);
-		$history->setNewsletterHtml($this->template->getHtml());	
-		$history->setNewsletterText($this->template->getText());
-		$history->setPreparedDate(new \DateTime());
-		
-		$newsletter->setSent(true);
-		$em->persist($history);
-		$history->checkNewsletterHtml($this->newsletterState, $this->newsletterDao);
-		$em->persist($newsletter);
+		$this->buildHistoryEntries($this->newsletterDao->getFirstUnpreparedHistory());
 		$tx->commit();
-		
-		$i = 0;
+	}
+	
+	private function buildHistoryEntries(History $history) {
+		$newsletter = $history->getNewsletter();
 		$salutationNeeded = preg_match('/' . preg_quote(Template::PLACEHOLDER_SALUTATION) . '/', $history->getNewsletterHtml());
 		
-		$tx = $this->tm->createTransaction();
-		foreach ($emailAddresses as $email) {
+		foreach ($this->newsletterDao->getRecipientEmailAddressesForNewsletter($history->g) as $email) {
 			$recipient = $this->newsletterDao->getRecipientByEmailAndLocale($email, $this->newsletter->getN2nLocale());
 			$historyEntry = new HistoryEntry();
 			$historyEntry->setEmail($recipient->getEmail());
@@ -68,9 +40,15 @@ class HistoryEntryGenerator implements ShutdownListener {
 			if ($salutationNeeded) {
 				$historyEntry->setSalutation($recipient->buildSalutation($this->newsletterState->getDtc()));
 			}
-			$em->persist($historyEntry);
+			$this->newsletterDao->persist($historyEntry);
 		}
-		$tx->commit();
 		
+		if (!$newsletter->isSent()) {
+			$newsletter->setSent(true);
+			$this->newsletterDao->persistNewsletter($history->getNewsletter());
+		}
+		
+		$history->setPreparedDate(new \DateTime());
+		$this->newsletterDao->persistHistory($history);
 	}
 }
