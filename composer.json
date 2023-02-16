@@ -11,6 +11,14 @@
             "email": "guenther@hnm.ch"
         }
     ],
+    "minimum-stability" : "dev",
+    "prefer-stable": false,
+    "config" : {
+      "vendor-dir" : "src/vendor",
+      "allow-plugins": {
+        "n2n/n2n-composer-module-installer": true
+      }
+    },
     "require": {
         "n2n/n2n-composer-module-installer": "~7.1.5",
         "n2n/rocket": "^2.0.12",
