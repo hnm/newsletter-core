@@ -117,7 +117,7 @@ class SendBatchDao implements RequestScoped {
 				}
 				
 				// send newsletter mails to system manager when in development mode!
-				$alternativeRecipient = N2N::isDevelopmentModeOn() ? N2N::getAppConfig()->mail()->getSystemManagerAddress() : null;
+				$alternativeRecipient = !N2N::isLiveStageOn() ? N2N::getAppConfig()->mail()->getSystemManagerAddress() : null;
 				
 				$newsletterMail = new NewsletterMail($this->newsletterState->getSenderEmail(),
 						$historyEntry, $historyEntry->getHistory()->getNewsletter()->getSubject(), $alternativeRecipient);
