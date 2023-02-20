@@ -22,6 +22,7 @@
     "require": {
         "php": ">=7.0",
         "n2n/n2n": "~7.3",
+        "n2n/n2n-mail": "~7.3",
         "n2n/n2n-composer-module-installer": "~7.1.5",
         "n2n/rocket": "2.0.x-dev",
         "swiftmailer/swiftmailer" : "^6.0.2",

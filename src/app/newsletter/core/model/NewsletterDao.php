@@ -122,6 +122,18 @@ class NewsletterDao implements RequestScoped {
 		$this->em->flush();
 	}
 	
+	public function persistHistoryEntry(HistoryEntry $historyEntry) {
+		$this->em->persist($historyEntry);
+	}
+	
+	public function persistNewsletter(Newsletter $newsletter) {
+		$this->em->persist($newsletter);
+	}
+	
+	public function persistHistory(History $history) {
+		$this->em->persist($history);
+	}
+	
 	public function getNumRecipientsForNewsletter(Newsletter $newsletter) {
 		$params = array();
 		$sql = $this->prepareRecipientsSql($newsletter, $params);
@@ -266,8 +278,18 @@ class NewsletterDao implements RequestScoped {
 		$history->setNewsletterHtml($this->template->getHtml());
 		$history->setNewsletterText($this->template->getText());
 		$history->setPreparedDate(null);
-		$history->checkNewsletterHtml($this->newsletterState, $this->newsletterDao);
 		$this->em->persist($history);
+		$this->em->flush();
+		
+		$history->checkNewsletterHtml($this->newsletterState, $this);
+		$this->em->persist($history);
+	}
+	
+	/**
+	 * @return History
+	 */
+	public function getFirstUnpreparedHistory() {
+		return $this->em->createNqlCriteria('SELECT h FROM History h WHERE h.preparedDate IS NULL')->limit(1)->toQuery()->fetchSingle();
 	}
 	
 	public function getOrCreateRecipient(string $firstName, string $lastName, string $email, string $gender, string $saluteWith, 
