@@ -8,11 +8,10 @@ use n2n\web\http\controller\Controller;
 use newsletter\core\model\NewsletterState;
 use n2n\util\type\CastUtils;
 use n2n\core\container\N2nContext;
-use n2n\util\uri\Path;
-use rocket\impl\ei\component\command\adapter\IndependentEiCommandAdapter;
 use rocket\ei\util\Eiu;
-use rocket\si\control\SiButton;
-use rocket\si\control\SiIconType;
+use rocket\impl\ei\component\command\IndependentEiCommandAdapter;
+use rocket\ei\manage\control\ControlButton;
+use rocket\ei\manage\control\IconType;
 
 class TestSendEiCommand extends IndependentEiCommandAdapter {
 	const CONTROL_KEY = 'testSend';
@@ -25,7 +24,7 @@ class TestSendEiCommand extends IndependentEiCommandAdapter {
  		return array(self::CONTROL_KEY => $dtc->t('test_send_txt'));
  	}
 
-	function createEntryGuiControls(Eiu $eiu): array {
+ 	function createEntryControls(Eiu $eiu, HtmlView $view): array {
 		$eiuEntry = $eiu->entry();
 
 		if ($eiuEntry->isNew() || $eiu->frame()->isExecutedBy($this)) {
@@ -36,19 +35,16 @@ class TestSendEiCommand extends IndependentEiCommandAdapter {
  		CastUtils::assertTrue($newsletterState instanceof NewsletterState);
 
  		$dtc = $newsletterState->getDtc();
-		$siButton = SiButton::secondary($dtc->t('test_send_txt'), SiIconType::ICON_CHECK)
-			->setTooltip($dtc->t('test_send_tooltip', array('entry' => $eiu->frame()->getGenericLabel())))
-			->setImportant(true);
-
-		$eiuControlFactory = $eiu->factory()->guiControl();
-
-		return [$eiuControlFactory->newCmdRef(self::CONTROL_KEY, $siButton, new Path([$eiu->entry()->getPid()]))];
+ 		
+ 		$controlButton = new ControlButton($dtc->t('test_send_txt'),
+ 				$dtc->t('test_send_tooltip', array('entry' => $eiu->frame()->getGenericLabel())), 
+ 				true, ControlButton::TYPE_SECONDARY, IconType::ICON_CHECK);
+ 		
+ 		$eiuControlFactory = $eiu->frame()->controlFactory($this);
+ 		
+ 		return [self::CONTROL_KEY => $eiuControlFactory->createJhtml($controlButton, $eiu->entry()->getPid())];
 	}
 
- 	/**
- 	 * {@inheritDoc}
- 	 * @see \rocket\spec\ei\component\command\EiCommand::lookupController()
- 	 */
  	public function lookupController(Eiu $eiu): Controller {
  		return $eiu->lookup(TestSendController::class);
 		

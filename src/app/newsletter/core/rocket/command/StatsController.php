@@ -1,18 +1,10 @@
 <?php
 namespace newsletter\core\rocket\command;
 
-use gallery\core\model\Breadcrumb;
 use n2n\l10n\DynamicTextCollection;
 use n2n\web\http\controller\ControllerAdapter;
-use n2n\l10n\MessageContainer;
 use n2n\web\http\Request;
-use newsletter\core\bo\Newsletter;
 use newsletter\core\model\NewsletterState;
-use newsletter\core\bo\HistoryEntry;
-use n2n\web\http\PageNotFoundException;
-use newsletter\core\rocket\command\model\StatsModel;
-use newsletter\core\rocket\NewsletterManageDao;
-use rocket\core\model\RocketState;
 use rocket\ei\util\Eiu;
 use rocket\ei\util\EiuCtrl;
 
@@ -34,7 +26,6 @@ class StatsController extends ControllerAdapter {
 
 	/**
 	 * @param Eiu $eiu
-	 * @param RocketState $rocketState
 	 * @param Request $request
 	 */
 	public function prepare(NewsletterState $newsletterState, Request $request) {

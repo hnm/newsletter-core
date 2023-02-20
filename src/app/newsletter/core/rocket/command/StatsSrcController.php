@@ -1,12 +1,10 @@
 <?php
 namespace newsletter\core\rocket\command;
 
-use gallery\core\model\Breadcrumb;
 use n2n\l10n\DynamicTextCollection;
 use n2n\web\http\controller\ControllerAdapter;
 use n2n\l10n\MessageContainer;
 use n2n\web\http\Request;
-use newsletter\core\bo\Newsletter;
 use newsletter\core\model\NewsletterState;
 use newsletter\core\bo\HistoryEntry;
 use n2n\web\http\PageNotFoundException;
