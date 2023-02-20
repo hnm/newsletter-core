@@ -13,9 +13,11 @@
     ],
     "require": {
         "php": ">=7.0",
-        "n2n/n2n-composer-module-installer": "7.1.x-dev",
+        "n2n/n2n": "~7.3",
+        "n2n/n2n-composer-module-installer": "~7.1.5",
         "n2n/rocket": "2.0.x-dev",
-        "swiftmailer/swiftmailer" : "v6.0.2"
+        "swiftmailer/swiftmailer" : "^6.0.2",
+		"symfony/mailer": "^6.0.5@stable"
     },
     "autoload": {
         "psr-4": {
