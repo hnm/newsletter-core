@@ -1,0 +1,14 @@
+{
+	"name": "hnm/newsletter-core",
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=7.0",
+        "n2n/rocket": "dev-master",
+        "swiftmailer/swiftmailer" : "v6.0.2",
+        "hnm/newsletter-impl": "dev-master",
+        "n2n/n2nutil-bootstrap": "dev-master"
+    },
+	"require-dev" : {
+		"n2n/hangar" : "dev-master"
+	}
+}

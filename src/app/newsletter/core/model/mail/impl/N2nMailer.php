@@ -3,8 +3,8 @@ namespace newsletter\core\model\mail\impl;
 
 use newsletter\core\model\mail\Mailer;
 use newsletter\core\model\mail\Mail;
-use n2n\mail\Transport;
 use n2n\mail\smtp\SmtpConfig;
+use n2n\mail\Transport;
 
 class N2nMailer implements Mailer {
 	public function send(Mail $mail) {

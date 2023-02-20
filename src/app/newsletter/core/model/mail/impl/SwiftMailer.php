@@ -1,17 +1,13 @@
 <?php
 namespace newsletter\core\model\mail\impl;
 
+use n2n\mail\smtp\SmtpConfig;
 use newsletter\core\model\mail\Mailer;
 use newsletter\core\model\mail\Mail;
 use n2n\util\ex\IllegalStateException;
 use n2n\io\managed\File;
 use newsletter\core\model\mail\MailNotSendException;
-use n2n\mail\smtp\SmtpConfig;
 
-/**
- * @author thomasgunther
- * @deprecated
- */
 class SwiftMailer implements Mailer {
 	
 	private $mailer;

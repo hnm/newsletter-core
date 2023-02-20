@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS `newsletter` (
   `last_mod` datetime DEFAULT NULL,
   `last_mod_by` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- Daten Export vom Benutzer nicht ausgewählt
 -- Exportiere Struktur von Tabelle newsletter_impl.newsletter_blacklisted
@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS `newsletter_blacklisted` (
   `email` varchar(255) NOT NULL,
   `created` datetime DEFAULT NULL,
   PRIMARY KEY (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Daten Export vom Benutzer nicht ausgewählt
 -- Exportiere Struktur von Tabelle newsletter_impl.newsletter_ci
@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `newsletter_ci` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `order_index` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- Daten Export vom Benutzer nicht ausgewählt
 -- Exportiere Struktur von Tabelle newsletter_impl.newsletter_history
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `newsletter_history` (
   `newsletter_text` text,
   PRIMARY KEY (`id`),
   KEY `newsletter_history_index_1` (`newsletter_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- Daten Export vom Benutzer nicht ausgewählt
 -- Exportiere Struktur von Tabelle newsletter_impl.newsletter_history_entry
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `newsletter_history_entry` (
   `salutation` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `newsletter_history_entry_index_1` (`history_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- Daten Export vom Benutzer nicht ausgewählt
 -- Exportiere Struktur von Tabelle newsletter_impl.newsletter_history_link
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `newsletter_history_link` (
   PRIMARY KEY (`id`),
   KEY `newsletter_history_link_index_1` (`history_id`),
   KEY `newsletter_history_link_index_2` (`newsletter_ci_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 -- Daten Export vom Benutzer nicht ausgewählt
 -- Exportiere Struktur von Tabelle newsletter_impl.newsletter_history_link_click
@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS `newsletter_history_link_click` (
   KEY `newsletter_history_link_click_index_1` (`history_entry_id`),
   KEY `newsletter_history_link_click_index_2` (`history_link_id`),
   KEY `newsletter_history_link_click_index_3` (`recipient_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- Daten Export vom Benutzer nicht ausgewählt
 -- Exportiere Struktur von Tabelle newsletter_impl.newsletter_newsletter_cis
@@ -86,7 +86,7 @@ CREATE TABLE IF NOT EXISTS `newsletter_newsletter_cis` (
   `newsletter_id` int(10) unsigned NOT NULL,
   `newsletter_ci_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`newsletter_id`,`newsletter_ci_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Daten Export vom Benutzer nicht ausgewählt
 -- Exportiere Struktur von Tabelle newsletter_impl.newsletter_recipient
@@ -104,7 +104,7 @@ CREATE TABLE IF NOT EXISTS `newsletter_recipient` (
   `last_mod_by` varchar(255) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- Daten Export vom Benutzer nicht ausgewählt
 -- Exportiere Struktur von Tabelle newsletter_impl.newsletter_recipient_categories
@@ -112,7 +112,7 @@ CREATE TABLE IF NOT EXISTS `newsletter_recipient_categories` (
   `newsletter_id` int(10) unsigned NOT NULL,
   `recipient_category_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`newsletter_id`,`recipient_category_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Daten Export vom Benutzer nicht ausgewählt
 -- Exportiere Struktur von Tabelle newsletter_impl.newsletter_recipient_category
@@ -124,7 +124,7 @@ CREATE TABLE IF NOT EXISTS `newsletter_recipient_category` (
   `last_mod` datetime DEFAULT NULL,
   `last_mod_by` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 CREATE TABLE `newsletter_recipient_recipient_categories` (
 	`recipient_id` INT UNSIGNED NOT NULL,
 	`recipient_category_id` INT UNSIGNED NOT NULL,
@@ -140,7 +140,7 @@ CREATE TABLE IF NOT EXISTS `newsletter_recipient_history_entry_clicks` (
   `recipient_id` int(10) unsigned NOT NULL,
   `history_link_click_id` int(10) unsigned NOT NULL,
   PRIMARY KEY (`recipient_id`,`history_link_click_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 ALTER TABLE `newsletter_history_link`
 	CHANGE COLUMN `link` `link` TEXT NULL DEFAULT NULL AFTER `history_id`;

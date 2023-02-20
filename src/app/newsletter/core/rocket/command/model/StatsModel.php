@@ -27,6 +27,7 @@ class StatsModel implements RequestScoped {
 	}
 	
 	public function setup(Newsletter $newsletter, EiuCtrl $eiuCtrl) {
+		
 		$dtc = $this->newsletterState->getDtc();
 		$historyEntry = Template::buildDummyHistoryEntry();
 		
@@ -59,9 +60,9 @@ class StatsModel implements RequestScoped {
 		return $this->newsletter;
 	}
 	
-//	public function buildDetailUrl() {
-//		return $this->eiuCtrl->buildRedirectUrl($this->eiuCtrl->lookupEntry($this->newsletter->getId()));
-//	}
+	public function buildDetailUrl() {
+		return $this->eiuCtrl->buildRedirectUrl($this->eiuCtrl->lookupEntry($this->newsletter->getId()));
+	}
 	
 	private function determineLabel(string $url, HistoryEntry $historyEntry, Newsletter $newsletter) {
 		$dtc = $this->newsletterState->getDtc();

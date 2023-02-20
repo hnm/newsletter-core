@@ -12,14 +12,15 @@
 
 	$statsModel = $view->getParam('statsModel');
 	$view->assert($statsModel instanceof StatsModel);
-
-    $view->useTemplate('\rocket\si\content\impl\iframe\view\iframeTemplate.html');
+	
+	$view->useTemplate('\rocket\core\view\template.html',
+			array('title' => $html->getL10nText('newsletter_stats_txt')));
+	
 	$numNewsletterLoaded = 0;
 	$totalNewslettersSent = 0; 
 	
 	$newsletterDao = $statsModel->getNewsletterDao();
 	$newsletter = $statsModel->getNewsletter();
-
 ?>
 
 <h2><?php $html->text('newsletter_stats_txt') ?></h2>
@@ -33,7 +34,7 @@
 	</thead>
 	<tbody>
 		<?php foreach (HistoryEntry::getPossibleStatus() as $status) : ?>
-            <?php $num = $newsletterDao->getNumHistoryEntriesForNewsletter($newsletter, $status) ?>
+			<?php $num = $newsletterDao->getNumHistoryEntriesForNewsletter($newsletter, $status) ?>
 			<?php $totalNewslettersSent += $num ?>
 			<?php $numNewsletterLoaded += ($status === HistoryEntry::STATUS_READ) ? $num : 0 ?>
 			<tr>
@@ -87,3 +88,11 @@
 
 <p><?php $html->text('avg_clicks_per_newsletter_info',
 		array('avg' => sprintf("%01.2f", ($numNewsletterLoaded > 0) ? $numClicks / $numNewsletterLoaded : 0))) ?></p>
+
+<div class="rocket-zone-commands">
+	<div>
+		<?php $html->link($statsModel->buildDetailUrl(), 
+			new Raw('<i class="fa fa-times-circle"></i><span>' . $view->getL10nText('common_cancel_label') . '</span>'),
+					array('class' => 'btn btn-secondary')) ?>
+	</div>
+</div>

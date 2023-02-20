@@ -5,6 +5,7 @@ use newsletter\core\bo\Newsletter;
 use n2n\context\RequestScoped;
 use newsletter\core\bo\HistoryEntry;
 use newsletter\core\bo\Recipient;
+use n2n\core\N2N;
 use newsletter\core\bo\Blacklisted;
 use newsletter\core\bo\RecipientCategory;
 use rocket\core\model\Rocket;
@@ -121,18 +122,6 @@ class NewsletterDao implements RequestScoped {
 		$this->em->flush();
 	}
 	
-	public function persistNewsletter(Newsletter $newsletter) {
-		$this->em->persist($newsletter);
-	}
-	
-	public function persistHistory(History $history) {
-		$this->em->persist($history);
-	}
-	
-	public function persistHistoryEntry(HistoryEntry $historyEntry) {
-		$this->em->persist($historyEntry);
-	}
-	
 	public function getNumRecipientsForNewsletter(Newsletter $newsletter) {
 		$params = array();
 		$sql = $this->prepareRecipientsSql($newsletter, $params);
@@ -162,10 +151,10 @@ class NewsletterDao implements RequestScoped {
 		if (count($recipientCategories = $newsletter->getRecipientCategories()) > 0) {
 			$sql .= " AND (";
 			$categorySql = array();
-			foreach (array_keys($recipientCategories) as $key) {
-// 				$index = 
-// 				$params['re_lft_' . $key] = $recipientCategory->getLft();
-// 				$params['re_rgt_' . $key] = $recipientCategory->getRgt();
+			foreach ($recipientCategories as $key => $recipientCategory) {
+				$index = 
+				$params['re_lft_' . $key] = $recipientCategory->getLft();
+				$params['re_rgt_' . $key] = $recipientCategory->getRgt();
 				$categorySql[] = '(nrc.lft >= :re_lft_' . $key . ' AND nrc.rgt <= :re_rgt_' . $key . ')';
 			}
 			$sql .= implode(' OR ', $categorySql) . ")";
@@ -229,8 +218,8 @@ class NewsletterDao implements RequestScoped {
 
 	/**
 	 * @param \newsletter\core\bo\HistoryEntry
-	 * @param HistoryLink
-	 * @return HistoryLinkClick
+	 * @param \newsletter\core\bo\Article $historyLink
+	 * @return \newsletter\core\bo\HistoryEntryContentItemClick
 	 */
 	public function getHistoryLinkClick(HistoryEntry $historyEntry, HistoryLink $historyLink) {
 		return $this->em->createSimpleCriteria(HistoryLinkClick::getClass(),
@@ -279,14 +268,6 @@ class NewsletterDao implements RequestScoped {
 		$history->setPreparedDate(null);
 		$history->checkNewsletterHtml($this->newsletterState, $this->newsletterDao);
 		$this->em->persist($history);
-	}
-	
-	/**
-	 * @return History
-	 */
-	public function getFirstUnpreparedHistory() {
-		return $this->em->createNqlCriteria('SELECT h FROM history h WHERE h.preparedDate IS NULL ORDER BY id ASC')
-				->limit(1)->toQuery()->fetchSingle();
 	}
 	
 	public function getOrCreateRecipient(string $firstName, string $lastName, string $email, string $gender, string $saluteWith, 

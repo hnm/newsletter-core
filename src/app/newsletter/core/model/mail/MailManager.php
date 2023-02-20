@@ -2,8 +2,8 @@
 namespace newsletter\core\model\mail;
 
 use n2n\context\RequestScoped;
-use n2n\util\ex\IllegalStateException;
 use n2n\mail\smtp\SmtpConfig;
+use n2n\util\ex\IllegalStateException;
 
 class MailManager implements RequestScoped {
 

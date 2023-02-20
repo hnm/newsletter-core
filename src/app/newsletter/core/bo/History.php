@@ -123,7 +123,7 @@ class History extends ObjectAdapter {
 	/**
 	 * @param \DateTime $preparedDate
 	 */
-	public function setPreparedDate(\DateTime $preparedDate = null) {
+	public function setPreparedDate(\DateTime $preparedDate) {
 		$this->preparedDate = $preparedDate;
 	}
 
