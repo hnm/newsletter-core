@@ -5,7 +5,6 @@ use newsletter\core\bo\Newsletter;
 use n2n\context\RequestScoped;
 use newsletter\core\bo\HistoryEntry;
 use newsletter\core\bo\Recipient;
-use n2n\core\N2N;
 use newsletter\core\bo\Blacklisted;
 use newsletter\core\bo\RecipientCategory;
 use rocket\core\model\Rocket;
@@ -163,10 +162,10 @@ class NewsletterDao implements RequestScoped {
 		if (count($recipientCategories = $newsletter->getRecipientCategories()) > 0) {
 			$sql .= " AND (";
 			$categorySql = array();
-			foreach ($recipientCategories as $key => $recipientCategory) {
-				$index = 
-				$params['re_lft_' . $key] = $recipientCategory->getLft();
-				$params['re_rgt_' . $key] = $recipientCategory->getRgt();
+			foreach (array_keys($recipientCategories) as $key) {
+// 				$index = 
+// 				$params['re_lft_' . $key] = $recipientCategory->getLft();
+// 				$params['re_rgt_' . $key] = $recipientCategory->getRgt();
 				$categorySql[] = '(nrc.lft >= :re_lft_' . $key . ' AND nrc.rgt <= :re_rgt_' . $key . ')';
 			}
 			$sql .= implode(' OR ', $categorySql) . ")";
@@ -230,8 +229,8 @@ class NewsletterDao implements RequestScoped {
 
 	/**
 	 * @param \newsletter\core\bo\HistoryEntry
-	 * @param \newsletter\core\bo\Article $historyLink
-	 * @return \newsletter\core\bo\HistoryEntryContentItemClick
+	 * @param HistoryLink
+	 * @return HistoryLinkClick
 	 */
 	public function getHistoryLinkClick(HistoryEntry $historyEntry, HistoryLink $historyLink) {
 		return $this->em->createSimpleCriteria(HistoryLinkClick::getClass(),

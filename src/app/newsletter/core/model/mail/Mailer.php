@@ -1,7 +1,7 @@
 <?php
 namespace newsletter\core\model\mail;
 
-use n2n\core\config\SmtpConfig;
+use n2n\mail\smtp\SmtpConfig;
 
 interface Mailer {
 	public function send(Mail $mail);
