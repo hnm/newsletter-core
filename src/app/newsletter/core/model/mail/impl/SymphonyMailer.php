@@ -10,6 +10,8 @@ use Symfony\Component\Mailer\Transport;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Mime\Address;
 use n2n\mail\smtp\SmtpConfig;
+use Symfony\Component\Mailer\Exception\TransportException;
+use Symfony\Component\Messenger\Exception\HandlerFailedException;
 
 class SymphonyMailer implements Mailer {
 	
@@ -56,9 +58,9 @@ class SymphonyMailer implements Mailer {
 			}
 			
 			$this->mailer->send($symphonyEmail);
-		} catch (\Swift_RfcComplianceException $e) {
+		}  catch (TransportException $e) {
 			throw new MailNotSendException('Sending newsletter to ' . $mail->getRecipient() . 'failed: ' . $e->getMessage(), 0, $e);
-		} catch (\Swift_SwiftException $e) {
+		} catch (HandlerFailedException $e) {
 			throw new MailNotSendException('Sending newsletter to ' . $mail->getRecipient() . 'failed: ' . $e->getMessage(), 0, $e);
 		}
 	}
