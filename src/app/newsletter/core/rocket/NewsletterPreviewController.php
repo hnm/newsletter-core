@@ -8,7 +8,7 @@ use rocket\ei\manage\preview\controller\PreviewControllerAdapter;
 
 class NewsletterPreviewController extends PreviewControllerAdapter {
 	
-	public function index(NewsletterState $newsletterState, array $params = null) {
+	public function index(NewsletterState $newsletterState, ?array $params = null) {
 		$newsletter = $this->eiu()->object()->getEntityObj();
 		CastUtils::assertTrue($newsletter instanceof Newsletter);
 	

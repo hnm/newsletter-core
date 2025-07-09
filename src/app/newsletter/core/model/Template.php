@@ -34,7 +34,7 @@ class Template implements RequestScoped {
 	 * @param HistoryEntry $historyEntry
 	 * @return HtmlView
 	 */
-	public function getHtmlView(HistoryEntry $historyEntry = null) {
+	public function getHtmlView(?HistoryEntry $historyEntry = null) {
 		$this->n2nContext->setN2nLocale($this->newsletter->getN2nLocale());
 		$view = $this->viewFactory->create($this->newsletterState->getTemplateConfig()->getTemplateHtmlViewId(), 
 				array('historyEntry' => $this->detemineHistoryEntry($historyEntry), 'newsletter' => $this->newsletter, 
@@ -44,20 +44,20 @@ class Template implements RequestScoped {
 		return $view;
 	}
 	
-	public function getHtml(HistoryEntry $historyEntry = null) {
+	public function getHtml(?HistoryEntry $historyEntry = null) {
 		$view = $this->getHtmlView();
 		$view->initialize();
 		return $view->getContents();
 	}
 	
-	public function getText(HistoryEntry $historyEntry = null) {
+	public function getText(?HistoryEntry $historyEntry = null) {
 		$view = $this->viewFactory->create($this->newsletterState->getTemplateConfig()->getTemplateTextViewId(), 
 				array('newsletter' => $this->newsletter, 'historyEntry' => $this->detemineHistoryEntry($historyEntry)));
 		$view->initialize();
 		return $view->getContents();
 	}
 	
-	private function detemineHistoryEntry(HistoryEntry $historyEntry = null) {
+	private function detemineHistoryEntry(?HistoryEntry $historyEntry = null) {
 		if (null !== $historyEntry) return $historyEntry;
 		
 		return self::buildDummyHistoryEntry();

@@ -58,7 +58,7 @@ class DefaultMailModel implements RequestScoped {
 		MailUtils::sendNotificationMail($subject, $message, $recipient->getEmail());
 	}
 	
-	public function sendDeactivationMail(Recipient $recipient, string $mailRecipient = null) {
+	public function sendDeactivationMail(Recipient $recipient, ?string $mailRecipient = null) {
 		if (!($this->newsletterState->getNewsletterControllerConfig()->isNotifyOnUnsubscription())) return; 
 		
 		$dtc = $this->newsletterState->getDtc();

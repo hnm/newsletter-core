@@ -48,7 +48,7 @@ class HistoryLinkClick extends ObjectAdapter {
 		return $this->recipient;
 	}
 
-	public function setRecipient(Recipient $recipient = null) {
+	public function setRecipient(?Recipient $recipient = null) {
 		$this->recipient = $recipient;
 	}
 }

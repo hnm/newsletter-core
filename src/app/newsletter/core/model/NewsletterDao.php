@@ -257,7 +257,7 @@ class NewsletterDao implements RequestScoped {
 	}
 	
 	public function getOrCreateRecipient(string $firstName, string $lastName, string $email, string $gender, string $saluteWith, 
-			N2nLocale $n2nLocale, array $categories = null) {
+			N2nLocale $n2nLocale, ?array $categories = null) {
 		ArgUtils::valArray($categories, RecipientCategory::class, true);
 		
 		$tx = $this->tm->createTransaction();
@@ -273,7 +273,7 @@ class NewsletterDao implements RequestScoped {
 		return $recipient;
 	}
 	
-	public function getOrCreateRecipientForEmailAndLocale(string $email, N2nLocale $n2nLocale, array $categories = null) {
+	public function getOrCreateRecipientForEmailAndLocale(string $email, N2nLocale $n2nLocale, ?array $categories = null) {
 		$tx = $this->tm->createTransaction();
 		$recipient = $this->buildRecipient($email, $n2nLocale, $categories);
 		$this->em->persist($recipient);
@@ -282,7 +282,7 @@ class NewsletterDao implements RequestScoped {
 		return $recipient;
 	}
 	
-	private function buildRecipient(string $email, N2nLocale $n2nLocale, array $categories = null) {
+	private function buildRecipient(string $email, N2nLocale $n2nLocale, ?array $categories = null) {
 		ArgUtils::valArray($categories, RecipientCategory::class, true);
 		
 		$tmpCategories = array();
@@ -393,7 +393,7 @@ class NewsletterDao implements RequestScoped {
 	/**
 	 * @return \newsletter\core\bo\RecipientCategory[] 
 	 */
-	public function getRecipientCategories(N2nLocale $n2nLocale = null) {
+	public function getRecipientCategories(?N2nLocale $n2nLocale = null) {
 		return $this->em->createSimpleCriteria(RecipientCategory::getClass())->toQuery()->fetchArray();
 	}
 	

@@ -101,7 +101,7 @@ class StatsSrcController extends ControllerAdapter {
 		$this->redirectToController($newsletterIdRep);
 	}
 	
-	private function setup(string $newsletterIdRep, array $breadcrumbs = null) {
+	private function setup(string $newsletterIdRep, ?array $breadcrumbs = null) {
 		$this->newsletter = $this->eiuCtrl->lookupEntry($newsletterIdRep)->getEntityObj();
 		
 		if (null !== $breadcrumbs) {

@@ -19,7 +19,7 @@ class SimpleSubscriptionForm implements Dispatchable {
 	
 	public $email;
 	
-	public function __construct(DynamicTextCollection $dtc, array $recipientCategories = null) {
+	public function __construct(DynamicTextCollection $dtc, ?array $recipientCategories = null) {
 		ArgUtils::valArray($recipientCategories, RecipientCategory::class, true);
 		$this->recipientCategories = $recipientCategories;
 		$this->dtc = $dtc;

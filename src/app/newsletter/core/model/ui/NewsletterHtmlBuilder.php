@@ -15,7 +15,7 @@ class NewsletterHtmlBuilder {
 		$this->formHtml = $view->getFormHtmlBuilder();
 	}
 	
-	public function getSalutationRadio($propertyExpression, array $attrs = null) {
+	public function getSalutationRadio($propertyExpression, ?array $attrs = null) {
 		$elemContainer = new HtmlElement('div', $attrs);
 		foreach (Recipient::getSalutations() as $key => $salutation) {
 			$label = new HtmlElement('label', array('class' => 'radio mr-2'),
@@ -26,11 +26,11 @@ class NewsletterHtmlBuilder {
 		return $elemContainer;
 	}
 	
-	public function saluationRadio($propertyExpression, array $attrs = null) {
+	public function saluationRadio($propertyExpression, ?array $attrs = null) {
 		$this->view->out($this->getSalutationRadio($propertyExpression, $attrs));
 	}
 	
-	public function getGenderRadio($propertyExpression, array $attrs = null) {
+	public function getGenderRadio($propertyExpression, ?array $attrs = null) {
 		$elemContainer = new HtmlElement('div', $attrs);
 		foreach (Recipient::getGenders() as $gender) {
 			$label = new HtmlElement('label', array('class' => 'radio mr-2'),
@@ -41,7 +41,7 @@ class NewsletterHtmlBuilder {
 		return $elemContainer;
 	}
 	
-	public function genderRadio($propertyExpression, array $attrs = null) {
+	public function genderRadio($propertyExpression, ?array $attrs = null) {
 		$this->view->out($this->getGenderRadio($propertyExpression, $attrs));
 	}
 }

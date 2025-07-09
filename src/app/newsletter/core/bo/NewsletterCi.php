@@ -53,7 +53,7 @@ abstract class NewsletterCi extends ObjectAdapter {
 	 * @param string $html
 	 * @param string $eol
 	 */
-	public static function htmlToText(string $html = null, string $eol = "\n") {
+	public static function htmlToText(?string $html = null, string $eol = "\n") {
 		if ($html === null) return null;
 		return html_entity_decode(strip_tags(MailEncoder::htmlToText($html, $eol)), null, N2N::CHARSET);
 	}

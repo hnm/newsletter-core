@@ -64,7 +64,7 @@ class NewsletterState implements RequestScoped {
 		return $this->newsletterUrl;
 	}
 	
-	public function setThanksUrl(Url $thanksUrl = null) {
+	public function setThanksUrl(?Url $thanksUrl = null) {
 		$this->thanksUrl = $thanksUrl;
 	}
 	
@@ -75,7 +75,7 @@ class NewsletterState implements RequestScoped {
 		return $this->newsletterUrl->pathExt(NewsletterController::ACTION_THANKS);
 	}
 	
-	public function setSimpleUrl(Url $simpleUrl = null) {
+	public function setSimpleUrl(?Url $simpleUrl = null) {
 		$this->simpleUrl = $simpleUrl;
 	}
 	
@@ -176,7 +176,7 @@ class NewsletterState implements RequestScoped {
 		$this->replyToName = $replyToName;
 	}
 	
-	public function buildUnsubscriptionUrl(string $email = null) {
+	public function buildUnsubscriptionUrl(?string $email = null) {
 		$query = [];
 		if (null !== $email) {
 			$query['email'] = $email; 

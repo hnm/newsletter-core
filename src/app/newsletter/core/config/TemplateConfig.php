@@ -15,7 +15,7 @@ class TemplateConfig {
 		return $this->fileLogo;
 	}
 
-	public function setFileLogo(File $fileLogo = null) {
+	public function setFileLogo(?File $fileLogo = null) {
 		$this->fileLogo = $fileLogo;
 		
 		return $this;

@@ -14,7 +14,7 @@ class NewsletterMail extends MailAdapter {
 	private $replyToName;
 	
 	public function __construct(string $senderEmail, HistoryEntry $historyEntry, 
-			string $subject, string $alternativeRecipient = null) {
+			string $subject, ?string $alternativeRecipient = null) {
 		$this->senderEmail = $senderEmail;
 		$this->historyEntry = $historyEntry;
 		$this->alternativeRecipient = $alternativeRecipient;

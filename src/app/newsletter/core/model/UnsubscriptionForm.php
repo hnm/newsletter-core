@@ -18,7 +18,7 @@ class UnsubscriptionForm implements Dispatchable {
 	protected $email;
 	
 	public function __construct(DynamicTextCollection $dtc, bool $sendMail, 
-			string $email = null, string $mailRecipient = null) {
+			string $email = null, ?string $mailRecipient = null) {
 		$this->dtc = $dtc;
 		$this->sendMail = $sendMail;
 		$this->mailRecipient = $mailRecipient;
@@ -28,7 +28,7 @@ class UnsubscriptionForm implements Dispatchable {
 		}
 	}
 	
-	public function setEmail(string $email = null) {
+	public function setEmail(?string $email = null) {
 		ArgUtils::assertTrue($email === null || ValEmail::isEMail($email));
 		
 		$this->email = $email;

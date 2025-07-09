@@ -36,7 +36,7 @@ class SendBatchDao implements RequestScoped {
 	 * @param int $limit
 	 * @return HistoryEntry []
 	 */
-	public function getPreparedHistoryEntries(int $limit = null) {
+	public function getPreparedHistoryEntries(?int $limit = null) {
 		return $this->em->createSimpleCriteria(HistoryEntry::getClass(), array('status' =>
 				HistoryEntry::STATUS_PREPARED), array('id' => Criteria::ORDER_DIRECTION_ASC), $limit)->toQuery()->fetchArray();
 	}

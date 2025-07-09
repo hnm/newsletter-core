@@ -28,7 +28,7 @@ class NewsletterControllerAdapter extends ControllerAdapter {
 		return $this->recipientCategories;
 	}
 	
-	public function setRecipientCategories(array $recipientCategories = null) {
+	public function setRecipientCategories(?array $recipientCategories = null) {
 		ArgUtils::valArray($recipientCategories, RecipientCategory::class, true);
 		$this->recipientCategories = $recipientCategories;
 	}
@@ -37,7 +37,7 @@ class NewsletterControllerAdapter extends ControllerAdapter {
 		$this->config = $this->newsletterState->getNewsletterControllerConfig();
 	}
 	
-	protected function forwardWithDtc(string $viewNameExpression, array $params = null, string $moduleNamespace = null) {
+	protected function forwardWithDtc(string $viewNameExpression, ?array $params = null, ?string $moduleNamespace = null) {
 		$params = ArgUtils::toArray($params);
 		$params['templateViewId'] = $this->config->getTemplateViewId();
 		$view = $this->createView($viewNameExpression, $params, $moduleNamespace);
@@ -51,7 +51,7 @@ class NewsletterControllerAdapter extends ControllerAdapter {
 		throw new PageNotFoundException('subscription is not allowed');
 	}
 	
-	protected function checkRecipient(string $email, N2nLocale $n2nLocale = null) {
+	protected function checkRecipient(string $email, ?N2nLocale $n2nLocale = null) {
 		if (null !== ($recipient =
 				$this->newsletterDao->getRecipientByEmailAndLocale($email,
 						$n2nLocale ?? $this->getRequest()->getN2nLocale()))) {

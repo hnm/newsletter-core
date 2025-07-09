@@ -32,7 +32,7 @@ class HistoryEntry extends ObjectAdapter {
 	private $history;
 	private $historyLinkClicks;
 	
-	public function __construct(string $email = null, string $code = null) {
+	public function __construct(?string $email = null, ?string $code = null) {
 		$this->email = $email;
 		$this->code = $code;
 	}
@@ -57,7 +57,7 @@ class HistoryEntry extends ObjectAdapter {
 		return $this->salutation;
 	}
 	
-	public function setSalutation(string $salutation = null) {
+	public function setSalutation(?string $salutation = null) {
 		$this->salutation = $salutation;
 	}
 

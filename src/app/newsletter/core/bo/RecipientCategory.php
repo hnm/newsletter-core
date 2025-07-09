@@ -70,7 +70,7 @@ class RecipientCategory extends ObjectAdapter {
 		return $this->lastMod;
 	}
 	
-	public function setLastMod(\DateTime $lastMod = null) {
+	public function setLastMod(?\DateTime $lastMod = null) {
 		$this->lastMod = $lastMod;
 	}
 	

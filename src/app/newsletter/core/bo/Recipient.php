@@ -154,7 +154,7 @@ class Recipient extends ObjectAdapter {
 		return $this->n2nLocale;
 	}
 
-	public function setLastMod(\DateTime $lastmod = null) {
+	public function setLastMod(?\DateTime $lastmod = null) {
 		$this->lastMod = $lastmod;
 	}
 	
@@ -176,7 +176,7 @@ class Recipient extends ObjectAdapter {
 		return $this->created;
 	}
 
-	public function setCreated(\DateTime $created = null) {
+	public function setCreated(?\DateTime $created = null) {
 		$this->created = $created;
 	}
 	

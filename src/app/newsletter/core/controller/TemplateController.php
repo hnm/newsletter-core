@@ -67,7 +67,7 @@ class TemplateController extends ControllerAdapter {
 		$this->sendFile($fileLogo);
 	}
 
-	public function doLink($linkId, ParamGet $c = null) {
+	public function doLink($linkId, ?ParamGet $c = null) {
 		$this->beginTransaction();
 		$historyLink = $this->newsletterDao->getHistoryLinkById($linkId);
 		if (null === $historyLink) {

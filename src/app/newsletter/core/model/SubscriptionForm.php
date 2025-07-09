@@ -31,7 +31,7 @@ class SubscriptionForm implements Dispatchable, RequestScoped {
 	protected $gender;
 	protected $saluteWith;
 
-	public function __construct(DynamicTextCollection $dtc, N2nLocale $locale, array $recipientCategories = null) {
+	public function __construct(DynamicTextCollection $dtc, N2nLocale $locale, ?array $recipientCategories = null) {
 		ArgUtils::valArray($recipientCategories, RecipientCategory::class, true);
 		$this->recipientCategories = $recipientCategories;
 		$this->dtc = $dtc;
@@ -102,7 +102,7 @@ class SubscriptionForm implements Dispatchable, RequestScoped {
 		return $this->categoryIds;
 	}
 
-	public function setCategoryIds(array $categoryIds = null) {
+	public function setCategoryIds(?array $categoryIds = null) {
 		$this->categoryIds = $categoryIds;
 	}
 

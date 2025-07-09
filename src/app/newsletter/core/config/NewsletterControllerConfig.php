@@ -38,7 +38,7 @@ class NewsletterControllerConfig {
 		return $this->unsubscriptionMailRecipient;
 	}
 	
-	public function setUnsubscriptionMailRecipient(string $unsubscriptionMailRecipient = null) {
+	public function setUnsubscriptionMailRecipient(?string $unsubscriptionMailRecipient = null) {
 		$this->unsubscriptionMailRecipient = $unsubscriptionMailRecipient;
 		
 		return $this;

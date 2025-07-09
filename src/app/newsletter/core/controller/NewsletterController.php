@@ -61,12 +61,12 @@ class NewsletterController extends NewsletterControllerAdapter {
 				array('recipient' => $this->checkRecipient($email)));
 	}
 	
-	public function doActivate(ActivationController $activationController, array $delegateParams = null) {
+	public function doActivate(ActivationController $activationController, ?array $delegateParams = null) {
 		$activationController->setRecipientCategories($this->recipientCategories);
 		$this->delegate($activationController);
 	}
 	
-	public function doUnsubscribe(UnsubscriptionController $unsubscriptionController, array $delegateParams = null) {
+	public function doUnsubscribe(UnsubscriptionController $unsubscriptionController, ?array $delegateParams = null) {
 		$this->delegate($unsubscriptionController);
 	}
 }

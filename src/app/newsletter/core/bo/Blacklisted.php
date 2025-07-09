@@ -30,7 +30,7 @@ class Blacklisted extends ObjectAdapter {
 		return $this->email;
 	}
 	
-	public function setCreated(\DateTime $created = null) {
+	public function setCreated(?\DateTime $created = null) {
 		$this->created = $created;
 	}
 	/**

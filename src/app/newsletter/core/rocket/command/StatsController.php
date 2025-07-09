@@ -55,7 +55,7 @@ class StatsController extends ControllerAdapter {
 				$this->dtc->t('newsletter_stats_txt'));
 	}
 
-	function doSrc(StatsSrcController $srcController, array $params = null) {
+	function doSrc(StatsSrcController $srcController, ?array $params = null) {
 		$this->delegate($srcController);
 	}
 }

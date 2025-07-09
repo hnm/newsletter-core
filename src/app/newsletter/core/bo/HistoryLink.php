@@ -65,7 +65,7 @@ class HistoryLink extends ObjectAdapter {
 		return $this->newsletterCi;
 	}
 
-	public function setNewsletterCi(NewsletterCi $newsletterCi = null) {
+	public function setNewsletterCi(?NewsletterCi $newsletterCi = null) {
 		$this->newsletterCi = $newsletterCi;
 	}
 	

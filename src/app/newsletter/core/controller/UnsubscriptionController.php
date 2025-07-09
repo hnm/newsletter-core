@@ -5,7 +5,7 @@ use n2n\web\http\controller\ParamGet;
 use newsletter\core\model\UnsubscriptionForm;
 
 class UnsubscriptionController extends NewsletterControllerAdapter {
-	public function index(ParamGet $email = null) {
+	public function index(?ParamGet $email = null) {
 		$this->beginTransaction();
 		$unsubscriptionForm = new UnsubscriptionForm($this->newsletterState->getDtc(),
 				$this->config->isNotifyOnUnsubscription(),
