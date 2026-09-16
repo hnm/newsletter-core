@@ -42,6 +42,7 @@ CREATE TABLE IF NOT EXISTS `newsletter_history` (
 
 -- Daten Export vom Benutzer nicht ausgewählt
 -- Exportiere Struktur von Tabelle newsletter_impl.newsletter_history_entry
+-- newsletter_history_entry_code_idx to prevent deadlocks (code lookup during batch job sending)
 CREATE TABLE IF NOT EXISTS `newsletter_history_entry` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `email` varchar(255) DEFAULT NULL,
@@ -52,7 +53,8 @@ CREATE TABLE IF NOT EXISTS `newsletter_history_entry` (
   `history_id` int(10) unsigned DEFAULT NULL,
   `salutation` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `newsletter_history_entry_index_1` (`history_id`)
+  KEY `newsletter_history_entry_index_1` (`history_id`),
+  KEY `newsletter_history_entry_code_idx` (`code`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- Daten Export vom Benutzer nicht ausgewählt
